@@ -9,14 +9,25 @@
     <LinearLayout
         android:id="@+id/no_Expose_found_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
         <TextView
+            android:id="@+id/no_Expose_found"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Keine Exposes gefunden!!! Bitte fügen Sie ein neues Expose hinzu"
-            android:id="@+id/no_Expose_found"/>
+            android:lineSpacingExtra="30sp"
+            android:text="Keine Exposes gefunden!!!           Bitte fügen Sie ein neues Expose hinzu!!!"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
         <Button
             android:id="@+id/add_new_expose_when_no_are_found"
@@ -26,10 +37,7 @@
             android:text="Neues Expose erstellen"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:textStyle="bold"
-            />
-
-
+            android:textStyle="bold" />
 
 
     </LinearLayout>

@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.activities.LoginScreen;
@@ -66,9 +67,7 @@ public class MainActivity extends AppCompatActivity
         logout_dashboard= findViewById(R.id.logout_card);
 
 
-        emailnav = findViewById(R.id.emailnav);
-        usernameNav = findViewById(R.id.usernameNav);
-        profilPhotoNav = findViewById(R.id.profilPhotoNav);
+
 
 
         //Set up the Navigation Drawer
@@ -81,37 +80,50 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View header=navigationView.getHeaderView(0);
+        emailnav = header.findViewById(R.id.emailnav);
+        usernameNav = header.findViewById(R.id.usernameNav);
+        profilPhotoNav = header.findViewById(R.id.profilPhotoNav);
+
+
 
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
-
         //get current user
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        //get id for current user
-        userid = user.getUid();
-
-        // setup the navigation header with user information
-
-        //emailnav.setText(user.getEmail());
-        //usernameNav.setText(databaseReference.child(userid).child("email").toString());
+        user = auth.getCurrentUser();
 
 
-
-
+        // init authListener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
                     startActivity(new Intent(getApplicationContext(), LoginScreen.class));
                     finish();
+                }else{
+                    // setup the navigation header with user information
+                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+                    databaseReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            usernameNav.setText(String.valueOf(dataSnapshot.child("name").getValue().toString()));
+                            emailnav.setText(user.getEmail());
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
+
+
 
         //Setup the Redirects for the Cardviews
         all_expose_card.setOnClickListener(new View.OnClickListener() {

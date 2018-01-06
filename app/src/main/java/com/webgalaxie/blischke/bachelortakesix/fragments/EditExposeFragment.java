@@ -236,20 +236,6 @@ public class EditExposeFragment extends Fragment {
     }
 
 
-
-    private void getStringsFromEditText() {
-
-    }
-
-    private void changeFragment() {
-
-        Fragment showExposeFragment = new ShowExposeFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, showExposeFragment).commit();
-    }
-
-
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -359,7 +345,12 @@ public class EditExposeFragment extends Fragment {
 
 
         // change fragment to show expose
-        // changeFragment();
+        Fragment showExposeFragment = new ShowExposeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("exposeID", immoID);
+        showExposeFragment.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, showExposeFragment).commit();
     }
 
 

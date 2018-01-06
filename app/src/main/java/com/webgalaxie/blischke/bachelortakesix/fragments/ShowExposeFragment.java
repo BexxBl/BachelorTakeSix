@@ -3,7 +3,6 @@ package com.webgalaxie.blischke.bachelortakesix.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
@@ -175,11 +174,10 @@ public class ShowExposeFragment extends Fragment {
         Toast.makeText(getContext(), "Immobilie wurde entfernt", Toast.LENGTH_LONG).show();
 
         // change the Fragment
-        /*
-        Fragment showAllExposeFragment = new ShowAllExposeFragment();
+        Fragment deleteImmoSuccessFragment = new DeleteImmoSuccessFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).commit();
-        */
+        fragmentManager.beginTransaction().replace(R.id.content_frame, deleteImmoSuccessFragment).commit();
+
 
     }
 
