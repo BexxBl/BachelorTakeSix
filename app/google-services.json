@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "1067167795894",
+    "firebase_url": "https://myimmoexpose.firebaseio.com",
+    "project_id": "myimmoexpose",
+    "storage_bucket": "myimmoexpose.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067167795894:android:0cd1207e6e7d1398",
+        "android_client_info": {
+          "package_name": "com.webgalaxie.blischke.bachelortakethree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067167795894-0oalqe1ar1eiu75l1pk2tsaqdpjoldd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCYG18gomJbtT_FJ_hdfQDGwgpuaJJaVI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067167795894:android:b051ad4dba50364a",
+        "android_client_info": {
+          "package_name": "com.webgalaxie.blischke.bachelortakesix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067167795894-chjfhsbbrc6q7139c65afs2iu9t93gib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.webgalaxie.blischke.bachelortakesix",
+            "certificate_hash": "2843f865cba9b6761012f58783c9e37ed81ebf4c"
+          }
+        },
+        {
+          "client_id": "1067167795894-0oalqe1ar1eiu75l1pk2tsaqdpjoldd0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCYG18gomJbtT_FJ_hdfQDGwgpuaJJaVI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067167795894-0oalqe1ar1eiu75l1pk2tsaqdpjoldd0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

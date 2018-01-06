@@ -1,0 +1,110 @@
+<resources>
+    <string name="app_name">My Immo Exposé</string>
+
+
+    <!-- Splash Screen -->
+    <string name="welcome"> Herzlich Willkommen bei: </string>
+    <string name="project_of"> Ein Projekt von:</string>
+
+    <!-- Login / Register -->
+    <string name="login"> Anmelden</string>
+    <string name="logout"> Abmelden</string>
+    <string name="register"> Registrieren</string>
+    <string name="login_text"> Bitte loggen Sie sich ein, um alle Vorzüge dieser App nutzen zu können.</string>
+    <string name="no_account"> Sie haben noch keinen Account? Dann registrieren Sie sich hier! </string>
+    <string name="register_text"> Bitte registrieren Sie sich hier um alle Vorzüge der App "My Immo Expose" nutzen zu können.</string>
+    <string name="back_to_login"> Sie besitzen schon einen Account?! Dann klicken Sie hier um zurück zum Login zugelangen.</string>
+    <string name="email"> Email</string>
+    <string name="email_hint"> example@example.com</string>
+    <string name="username"> Username</string>
+    <string name="username_hint"> Max Mustermann </string>
+    <string name="password">Passwort eingeben</string>
+    <string name="pw_placeholder"> **********</string>
+    <string name="password_confirm">Passwort bestätigen</string>
+    <string name="passwort_vergessen_text"> Sie haben ihr Passwort vergessen? Dann geben Sie hier Ihre E-Mail ein und wir senden Ihnen ein neues Passwort.</string>
+    <string name="back_to_login_pw"> zurück zum Login</string>
+    <string name="btn_pw_vergessen"> Passwort zuschicken</string>
+    <string name="passwort_reset_success_text"> Sie haben erfolgreich das Passwort für folgende E-Mail:  </string>
+    <string name="passwort_reset_sucsess_test_2"> zurückgesetzt. Bitte sehen Sie in Ihren E-Mails nach.</string>
+    <string name="save_login_data"> Daten merken</string>
+    <string name="password_forgotten"> Sie haben Ihr Passwort vergessen?</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+
+    <!-- FACEBOOK CREDENTIALS -->
+    <string name="facebook_app_id">1248039575280260</string>
+    <string name="fb_login_protocol_scheme">fb1248039575280260</string>
+
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Nav-Items -->
+    <string name="dashboard"> Dashboard</string>
+    <string name="show_all_expose_title"> Meine Exposés</string>
+    <string name="my_account"> Mein Account</string>
+    <string name="import_export"> Import/ Export</string>
+    <string name="add_expose"> Exposé hinzufügen</string>
+    <string name="show_all_Expose_text"> Zeige alle Exposés an</string>
+    <string name="add_Expose_text"> Fügen Sie hier neue Exposés hinzu</string>
+    <string name="my_Account_text"> Alle Details zu Ihrem Account</string>
+    <string name="settings_text"> Configurieren Sie hier Ihre App</string>
+
+
+    <!-- Allgemein -->
+    <string name="action_settings">Einstellungen</string>
+
+    <!-- Cardview Example Texts -->
+    <string name="expose_name"> Immobilie 1</string>
+    <string name="erstellt_am"> erstellt am:</string>
+    <string name="expose_date"> 01.01.2018</string>
+    <string name="expose_status"> vermietet</string>
+    <string name="expose_adress"> Musterstraße 22 09864 Musterstadt</string>
+    <string name="expose_id">1</string>
+    <string name="expose_id_text"> ID:</string>
+
+    <!-- Activity Titels -->
+    <string name="title_activity_show_all_expose">ShowAllExpose</string>
+    <string name="title_activity_add_expose">Exposé hinzufügen</string>
+
+    <!-- Options Menu Items -->
+    <string name="save_expose" />
+    <string name="cancel_create_expose"> </string>
+
+    <!-- Add new Exposé Strings -->
+    <string name="add_new_Expose">Erstellen sie hier ihr neues Exposé</string>
+    <string name="add_title">Exposé Titel</string>
+    <string name="expose_type"> Art der Immobilie</string>
+    <string-array name="expose_types">
+        <item name="apartement_buy"> zu verkaufende Wohung</item>
+        <item name="apartement_rent"> zu vermietende Wohung</item>
+        <item name="assisted_living"> betreutes wohnen</item>
+        <item name="house_buy"> zu verkaufendes Haus</item>
+        <item name="house_rent"> zu vermietendes Haus</item>
+        <item name="gastronomy"> Gastronomie</item>
+        <item name="office"> Büro</item>
+    </string-array>
+
+    <string name="adress_heading"> Adresse</string>
+    <string name="street"> Straße</string>
+    <string name="housenumber"> Hausnummer </string>
+    <string name="postcode"> Postleitzahl</string>
+    <string name="city"> Stadt</string>
+    <string name="show_Adress"> Adresse anzeigen?</string>
+    <string name="desc_heading"> Beschreibung</string>
+    <string name="enter_text"> Geben Sie hier Ihren Text ein</string>
+    <string name="furnishing_note_heading"> Aussattung</string>
+    <string name="location_heading"> Lage</string>
+    <string name="other_heading"> Sonstige Informationen</string>
+    <string name="searchtags_heading"> Schlagwörter</string>
+
+
+    <!-- Save new Exposé Dialog -->
+    <string name="save_new_expose_dialog_text"> Sind Sie sich sicher??</string>
+    <string name="save_as_draft">als Entwurf Speichern</string>
+    <string name="publish"> Veröffentlichen</string>
+    <string name="cancel"> Abbrechen</string>
+
+
+</resources>
