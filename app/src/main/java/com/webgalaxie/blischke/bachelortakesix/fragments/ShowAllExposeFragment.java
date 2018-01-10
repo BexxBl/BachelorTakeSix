@@ -1,5 +1,6 @@
 package com.webgalaxie.blischke.bachelortakesix.fragments;
 
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.adapters.ImmobilienList;
 import com.webgalaxie.blischke.bachelortakesix.models.Immobilie;
+import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ import java.util.List;
 public class ShowAllExposeFragment extends Fragment {
 
     DatabaseReference databaseReference;
-    List <Immobilie> immobilien;
+    List<Immobilie> immobilien;
     ListView listViewImmobilien;
     FirebaseAuth auth;
     TextView textView;
@@ -49,13 +50,13 @@ public class ShowAllExposeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // inflating the view
-        View v = inflater.inflate(R.layout.show_all_expose_fragment,container,false);
+        View v = inflater.inflate(R.layout.show_all_expose_fragment, container, false);
 
         // getting an FirebaseAuth instance to use the current user id in the database reference
         auth = FirebaseAuth.getInstance();
 
         // get an reference to the database where the immos are stored under the currents user id
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Immobilien").child(auth.getCurrentUser().getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN).child(auth.getCurrentUser().getUid());
 
         // list to store the immo objects
         immobilien = new ArrayList<>();
@@ -64,15 +65,12 @@ public class ShowAllExposeFragment extends Fragment {
         listViewImmobilien = v.findViewById(R.id.show_all_expose_list);
         textView = v.findViewById(R.id.no_Expose_found);
         add_new_expose_when_no_are_found = v.findViewById(R.id.add_new_expose_when_no_are_found);
-        listviewlayout =v.findViewById(R.id.listviewlayout);
+        listviewlayout = v.findViewById(R.id.listviewlayout);
         no_Expose_found_layout = v.findViewById(R.id.no_Expose_found_layout);
 
         // return the view
         return v;
     }
-
-
-
 
 
     @Override
@@ -104,6 +102,7 @@ public class ShowAllExposeFragment extends Fragment {
                         immobilien.add(immobilie);
                     }
 
+
                     // creating the List Adapter and add him to the Listview
                     final ImmobilienList immobilienAdapter = new ImmobilienList((Activity) getContext(), immobilien);
                     listViewImmobilien.setAdapter(immobilienAdapter);
@@ -115,7 +114,7 @@ public class ShowAllExposeFragment extends Fragment {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             //get the id of the clicked immo
                             Immobilie immobilie = (Immobilie) listViewImmobilien.getItemAtPosition(position);
-                            String immoID = immobilie.getImmo_ID();
+                            String immoID = immobilie.getImmoID();
 
                             // change the fragment to ShowExposeFragment which is an more detailed version
                             // of the Expose
@@ -126,10 +125,10 @@ public class ShowAllExposeFragment extends Fragment {
                             showExposeFragment.setArguments(bundle);
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.content_frame, showExposeFragment).commit();
-                }
-            });
+                        }
+                    });
 
-                }else{
+                } else {
                     // if there are no values in the database hide the listview and display
                     // the button and text view
                     no_Expose_found_layout.setVisibility(View.VISIBLE);
@@ -139,8 +138,7 @@ public class ShowAllExposeFragment extends Fragment {
                     add_new_expose_when_no_are_found.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getContext(), "Neues Expose wurde geklickt",Toast.LENGTH_SHORT).show();
-                            AddNewExposeFragment addNewExposeFragment = new AddNewExposeFragment();
+                            AddNewExpose addNewExposeFragment = new AddNewExpose();
                             getFragmentManager().beginTransaction().replace(R.id.content_frame, addNewExposeFragment).commit();
                         }
                     });
@@ -149,12 +147,10 @@ public class ShowAllExposeFragment extends Fragment {
                 }
 
 
-
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
 
 
             }

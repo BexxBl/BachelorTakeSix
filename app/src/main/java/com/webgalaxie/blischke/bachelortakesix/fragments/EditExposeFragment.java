@@ -2,18 +2,13 @@ package com.webgalaxie.blischke.bachelortakesix.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,11 +16,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.models.Immobilie;
 
@@ -34,32 +25,6 @@ import com.webgalaxie.blischke.bachelortakesix.models.Immobilie;
  */
 
 public class EditExposeFragment extends Fragment {
-
-    private DatabaseReference mDatabase;
-
-
-    private EditText input_name,
-            input_street,
-            input_housenumber,
-            input_postcode,
-            input_city,
-            input_country,
-            input_desc_text,
-            input_location_text,
-            input_ausstattung_text,
-            input_number_of_rooms,
-            input_number_of_sleeping_rooms,
-            input_number_of_bathrooms,
-            input_size,
-            input_price_netto,
-            input_price_brutto,
-            input_rent_cold,
-            input_rent_warm,
-            input_heating_cost,
-            input_caution,
-            input_misc_cost,
-            input_rent_sum,
-            input_price_pro_sqm;
 
     String input_name_String,
             input_street_String,
@@ -87,31 +52,44 @@ public class EditExposeFragment extends Fragment {
             immo_heatingcost_included_String,
             immo_show_Adress_String,
             immo_price_with_mwst_String;
-
+    Bundle bundle;
+    //Reference to the database
+    DatabaseReference databaseReference;
+    private DatabaseReference mDatabase;
+    private EditText input_name,
+            input_street,
+            input_housenumber,
+            input_postcode,
+            input_city,
+            input_country,
+            input_desc_text,
+            input_location_text,
+            input_ausstattung_text,
+            input_number_of_rooms,
+            input_number_of_sleeping_rooms,
+            input_number_of_bathrooms,
+            input_size,
+            input_price_netto,
+            input_price_brutto,
+            input_rent_cold,
+            input_rent_warm,
+            input_heating_cost,
+            input_caution,
+            input_misc_cost,
+            input_rent_sum,
+            input_price_pro_sqm;
     private Spinner select_expose_type;
-
     private CheckBox input_immo_heatingcost_included,
             input_immo_show_Adress,
             input_immo_price_with_mwst;
-
-
     private FirebaseUser user;
     private String user_id;
-
     private Immobilie immobilie;
-
-    Bundle bundle;
-
-
-    //Reference to the database
-    DatabaseReference databaseReference;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
 
     }
 
@@ -121,7 +99,7 @@ public class EditExposeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // inflate the layout
-        View v = inflater.inflate(R.layout.add_new_expose_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_delete_immo_success, container, false);
 
         // get the current user
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -136,6 +114,7 @@ public class EditExposeFragment extends Fragment {
             Toast.makeText(getContext(), "Keine Argumente gesendet", Toast.LENGTH_SHORT).show();
         }
 
+        /*
         //Init the view elements
         input_name = v.findViewById(R.id.input_name);
         input_street = v.findViewById(R.id.input_street);
@@ -204,6 +183,8 @@ public class EditExposeFragment extends Fragment {
                 input_rent_sum.setText(String.valueOf(dataSnapshot.child("immo_rent_sum").getValue()));
                 input_price_pro_sqm.setText(String.valueOf(dataSnapshot.child("immo_price_pro_sqm").getValue()));
 
+
+
                 if (dataSnapshot.child("immo_show_Adress").getValue() == "ja") {
                     input_immo_show_Adress.setChecked(true);
                 } else {
@@ -231,6 +212,7 @@ public class EditExposeFragment extends Fragment {
             }
         });
 
+*/
         //return the view
         return v;
     }
@@ -249,14 +231,15 @@ public class EditExposeFragment extends Fragment {
             case R.id.action_save_new_expose:
                 //Clicking on Save button will save Expose to database
                 final String immoID = bundle.getString("exposeID");
-                updateExpose();
+                Toast.makeText(getContext(), "Expose wird danach geupdatet. Funktion auskommentiert weil bildupload noch eingefügt werden muss", Toast.LENGTH_SHORT).show();
+                //updateExpose();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-
+   /*
 
     private void updateExpose() {
 
@@ -293,6 +276,7 @@ public class EditExposeFragment extends Fragment {
         input_rent_sum_String = input_rent_sum.getText().toString().trim();
         input_price_pro_sqm_String = input_price_pro_sqm.getText().toString().trim();
 
+
         if (input_immo_show_Adress.isChecked()) {
             immo_show_Adress_String = "ja";
         } else {
@@ -311,7 +295,9 @@ public class EditExposeFragment extends Fragment {
 
 
         // updating the database
+
         Immobilie immobilie = new Immobilie(immoID,
+
                 input_name_String,
                 input_street_String,
                 input_housenumber_String,
@@ -351,7 +337,7 @@ public class EditExposeFragment extends Fragment {
         showExposeFragment.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, showExposeFragment).commit();
-    }
+    }*/
 
 
 

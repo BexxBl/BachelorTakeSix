@@ -12,7 +12,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -26,11 +26,11 @@
         <activity android:name=".activities.LoginScreen" />
         <activity android:name=".activities.PasswortResetSuccessScreen" />
         <activity android:name=".activities.RegisterScreen" />
-
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activities.UserDeleteActivity"></activity>
     </application>
 
 </manifest>

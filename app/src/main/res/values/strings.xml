@@ -77,14 +77,34 @@
     <string name="add_title">Exposé Titel</string>
     <string name="expose_type"> Art der Immobilie</string>
     <string-array name="expose_types">
-        <item name="apartement_buy"> zu verkaufende Wohung</item>
-        <item name="apartement_rent"> zu vermietende Wohung</item>
-        <item name="assisted_living"> betreutes wohnen</item>
-        <item name="house_buy"> zu verkaufendes Haus</item>
-        <item name="house_rent"> zu vermietendes Haus</item>
+        <item name="haus"> Haus</item>
+        <item name="wohnung"> Wohnung</item>
         <item name="gastronomy"> Gastronomie</item>
         <item name="office"> Büro</item>
     </string-array>
+    <string-array name="vermarktung">
+        <item name="kauf"> Kauf</item>
+        <item name="miete"> Miete</item>
+    </string-array>
+    <string-array name="nutzungsart">
+        <item name="wohnen"> Wohnen</item>
+        <item name="gewerbe"> Gewerbe</item>
+
+    </string-array>
+    <string-array name="lage">
+        <item name="zentrum"> Zentrum</item>
+        <item name="nebenzentrum"> Nebenzentrum</item>
+        <item name="süden"> Süden</item>
+        <item name="westen"> Westen</item>
+        <item name="norden"> Norden</item>
+        <item name="osten"> Norden</item>
+    </string-array>
+    <string-array name="alter">
+        <item name="Neubau"> Neubau</item>
+        <item name="Altbau"> Altbau</item>
+
+    </string-array>
+
 
     <string name="adress_heading"> Adresse</string>
     <string name="street"> Straße</string>

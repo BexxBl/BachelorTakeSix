@@ -45,7 +45,7 @@ public class LoginScreen extends AppCompatActivity {
         emailInput = findViewById(R.id.email_input_login);
         passwortInput = findViewById(R.id.password_input_login);
         loginBTN = findViewById(R.id.loginBTN);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
 
         // Setup Redirect to Register Activity

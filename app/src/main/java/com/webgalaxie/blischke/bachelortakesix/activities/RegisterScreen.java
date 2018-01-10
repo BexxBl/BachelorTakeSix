@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.webgalaxie.blischke.bachelortakesix.R;
+import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 public class RegisterScreen extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class RegisterScreen extends AppCompatActivity {
         nameRegisterInput = findViewById(R.id.nameRegisterInput);
 
         // Buttons
-        registerBTN = (Button) findViewById(R.id.registerUserBTN);
+        registerBTN = findViewById(R.id.registerUserBTN);
 
         // TextViews
         backtoLogin = findViewById(R.id.backtoLogin);
@@ -104,7 +105,8 @@ public class RegisterScreen extends AppCompatActivity {
             return;
         }
         if (password.length() < 6) {
-            passworRegisterInput.setError("Das eingegebene Passwort ist zu kurz. Bitte geben Sie ein Passwort mit mind. 6 Zeichen ein.");
+            passworRegisterInput.setError("Das eingegebene Passwort ist zu kurz. Bitte geben Sie" +
+                    " ein Passwort mit mind. 6 Zeichen ein.");
             passworRegisterInput.requestFocus();
             return;
         }
@@ -118,18 +120,21 @@ public class RegisterScreen extends AppCompatActivity {
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
                             if (task.isSuccessful()) {
-                                auth.signInWithEmailAndPassword(email, password);
                                 putDataInDB();
+                                progressDialog.dismiss();
+                                startActivity(new Intent(getApplicationContext(), LoginScreen.class));
                             } else
-                                Toast.makeText(getApplicationContext(), "error registering user", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),
+                                        "Sie konnten nicht registriert werden. " +
+                                                "Haben Sie sich mit dieser E-Mail-Adresse " +
+                                                "schon registiert? Dann loggen Sie sich bitte ein.",
+                                        Toast.LENGTH_SHORT).show();
                         }
                     });
         }
 
     }
-
 
 
     private void putDataInDB() {
@@ -150,7 +155,7 @@ public class RegisterScreen extends AppCompatActivity {
         currentUserDB.child("name").setValue(name);
         currentUserDB.child("email").setValue(email);
         currentUserDB.child("passwort").setValue(passwort);
-        currentUserDB.child("image").setValue("default");
+        currentUserDB.child("image").setValue(Constants.DEFAULT_USER_PROFIL_PICTURE_URL);
     }
 
 

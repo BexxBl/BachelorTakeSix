@@ -1,7 +1,6 @@
 package com.webgalaxie.blischke.bachelortakesix.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,14 +10,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.URLUtil;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,11 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.squareup.picasso.Picasso;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.activities.LoginScreen;
-import com.webgalaxie.blischke.bachelortakesix.fragments.AddNewExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.AddNewExpose;
 import com.webgalaxie.blischke.bachelortakesix.fragments.MyAccountFragment;
 import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
 
@@ -56,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         // set up the Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(" ");
 
@@ -68,16 +62,14 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
         //Set up the Navigation Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View header=navigationView.getHeaderView(0);
@@ -100,6 +92,8 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user == null) {
+                    usernameNav.setText("");
+                    emailnav.setText("");
                     // user auth state is changed - user is null
                     // launch login activity
                     startActivity(new Intent(getApplicationContext(), LoginScreen.class));
@@ -107,11 +101,19 @@ public class MainActivity extends AppCompatActivity
                 }else{
                     // setup the navigation header with user information
                     databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
+
                     databaseReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            usernameNav.setText(String.valueOf(dataSnapshot.child("name").getValue().toString()));
-                            emailnav.setText(user.getEmail());
+                            if (String.valueOf(dataSnapshot.child("name").getValue().toString()) != null && user.getEmail() != null) {
+                                usernameNav.setText(String.valueOf(dataSnapshot.child("name").getValue().toString()));
+                                emailnav.setText(user.getEmail());
+
+                            }
+
+                            Glide.with(getApplicationContext()).load(dataSnapshot.child("image").getValue()).into(profilPhotoNav);
+
+
                         }
 
                         @Override
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
                 }
+
             }
         };
 
@@ -139,9 +142,9 @@ public class MainActivity extends AppCompatActivity
         add_expose_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddNewExposeFragment addNewExposeFragment = new AddNewExposeFragment();
+                AddNewExpose addNewExpose = new AddNewExpose();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, addNewExposeFragment)
+                        .replace(R.id.content_frame, addNewExpose)
                         .addToBackStack(null)
                         .commit();
             }
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -198,9 +201,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_add_new_expose) {
             //Replace content_frame with the AddNewExposeFragment
 
-            AddNewExposeFragment addNewExposeFragment = new AddNewExposeFragment();
+            AddNewExpose addNewExpose = new AddNewExpose();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, addNewExposeFragment)
+                    .replace(R.id.content_frame, addNewExpose)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_my_account) {
@@ -216,7 +219,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         // Close the NavigationDrawer after clicking MenuItem
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

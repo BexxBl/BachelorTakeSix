@@ -34,7 +34,7 @@ public class DeleteImmoSuccessFragment extends Fragment {
         goToAddNewImmoBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment addNewExposeFragment = new AddNewExposeFragment();
+                Fragment addNewExposeFragment = new AddNewExpose();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, addNewExposeFragment).commit();
             }
