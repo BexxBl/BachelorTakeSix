@@ -24,7 +24,6 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -77,7 +76,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
     //define variable for dropdowns
     private Spinner spinner_immo_art, spinner_immo_nutzungsart, spinner_immo_vermarktung, spinner_immo_lage,
-            spinner_immo_alter;
+            spinner_immo_alter, spinner_immo_heizungsart, spinner_immo_energieträger,
+            spinner_immo_objektzustand, spinner_immo_ausstattung_quality, spinner_immo_energieausweis_yes_no, spinner_immo_energieausweis_type;
 
     // variable for imageView
     private ImageView showPictureOfImmoView;
@@ -86,19 +86,18 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
     //variables for buttons
     private Button choosePictureBTN, chooseAusstattungBTN;
 
-    // variables for checkboxes
-    private CheckBox show_adress_checkbox, input_immo_heatingcost_included, input_immo_price_with_mwst, provisionspflichtig_checkbox;
 
     // define Strings to save the inputs from EditTexts
     private String string_immo_name, string_image_name, string_immo_street, string_immo_housenumber, string_immo_postcode,
-            string_immo_city, string_immo_state, string_immo_country, string_immo_sonstige_angaben_text, string_immo_etage,
-            string_immo_etage_total, string_immo_wohnungsnummer, string_immo_kaufpreis, string_immo_preis_pro_qm,
+            string_immo_city, string_immo_state, string_immo_country, string_immo_etage,
+            string_immo_etage_total, string_immo_kaufpreis, string_immo_preis_pro_qm,
             string_immo_warmmiete, string_immo_kaltmiete, string_immo_nebenkosten, string_immo_heizkosten, string_immo_mietzuschläge,
             string_immo_gesamtmiete, string_immo_sonstige_kosten, string_immo_kaution_kosten, string_immo_kaution_text, string_immo_provision,
             string_immo_baujahr, string_immo_sanierung, string_immo_wohnfläche, string_immo_grundstücksfläche, string_immo_nutzfläche,
             string_immo_gesamtfläche, string_immo_zimmer_gesamt, string_immo_schlafzimmer, string_immo_badezimmer, string_immo_desc_text,
             string_immo_location_text, string_immo_ausstattung_text, string_immo_ausgewählte_ausstattung, string_immo_art, string_immo_lage,
-            string_immo_nutzungsart, string_immo_vermarktung, string_immo_alter;
+            string_immo_nutzungsart, string_immo_vermarktung, string_immo_alter, string_immo_heizungsart, string_immo_energieträger,
+            string_immo_objektzustand, string_immo_ausstattung_quality, string_immo_energieausweis_yes_no, string_immo_energieausweis_type, string_immo_image_url;
 
 
     private String string_contact_salutation, string_contact_title, string_contact_lastname, string_contact_firstname,
@@ -142,10 +141,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         input_immo_city = v.findViewById(R.id.input_immo_city);
         input_immo_state = v.findViewById(R.id.input_immo_state);
         input_immo_country = v.findViewById(R.id.input_immo_country);
-        input_immo_sonstige_angaben_text = v.findViewById(R.id.input_immo_sonstige_angaben_text);
         input_immo_etage = v.findViewById(R.id.input_immo_etage);
         input_immo_etage_total = v.findViewById(R.id.input_immo_etage_total);
-        input_immo_wohnungsnummer = v.findViewById(R.id.input_immo_wohnungsnummer);
         input_immo_kaufpreis = v.findViewById(R.id.input_immo_kaufpreis);
         input_immo_preis_pro_qm = v.findViewById(R.id.input_immo_preis_pro_qm);
         input_immo_warmmiete = v.findViewById(R.id.input_immo_warmmiete);
@@ -194,6 +191,14 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         spinner_immo_lage = v.findViewById(R.id.spinner_immo_lage);
         spinner_immo_alter = v.findViewById(R.id.spinner_immo_alter);
 
+        spinner_immo_heizungsart = v.findViewById(R.id.spinner_immo_heizungsart);
+        spinner_immo_energieträger = v.findViewById(R.id.spinner_immo_energieträger);
+        spinner_immo_objektzustand = v.findViewById(R.id.spinner_immo_objektzustand);
+        spinner_immo_ausstattung_quality = v.findViewById(R.id.spinner_immo_ausstattung_quality);
+        spinner_immo_energieausweis_yes_no = v.findViewById(R.id.spinner_immo_energieausweis_yes_no);
+        spinner_immo_energieausweis_type = v.findViewById(R.id.spinner_immo_energieausweis_type);
+
+
         choosePictureBTN = v.findViewById(R.id.choosePictureBTN);
         chooseAusstattungBTN = v.findViewById(R.id.chooseAusstattungBTN);
 
@@ -207,6 +212,14 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         spinner_immo_vermarktung.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.vermarktung, android.R.layout.simple_spinner_dropdown_item));
         spinner_immo_lage.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.lage, android.R.layout.simple_spinner_dropdown_item));
         spinner_immo_alter.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.alter, android.R.layout.simple_spinner_dropdown_item));
+
+
+        spinner_immo_heizungsart.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.heizungsart, android.R.layout.simple_spinner_dropdown_item));
+        spinner_immo_energieträger.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.energieträger, android.R.layout.simple_spinner_dropdown_item));
+        spinner_immo_objektzustand.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.objektzustand, android.R.layout.simple_spinner_dropdown_item));
+        spinner_immo_ausstattung_quality.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.ausstattung_quality, android.R.layout.simple_spinner_dropdown_item));
+        spinner_immo_energieausweis_yes_no.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.energieausweis_yes_no, android.R.layout.simple_spinner_dropdown_item));
+        spinner_immo_energieausweis_type.setAdapter(ArrayAdapter.createFromResource(getContext(), R.array.energieausweistype, android.R.layout.simple_spinner_dropdown_item));
 
 
         // get an reference to the current user and his id
@@ -306,6 +319,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
                                 //adding an upload to firebase database
                                 pictureDatabase.child("url").setValue(imageDownloadURL);
+                                string_immo_image_url = imageDownloadURL;
+
 
                                 //dismissing the progress dialog
                                 progressDialog.dismiss();
@@ -342,6 +357,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
                                 //adding an upload to firebase database
                                 pictureDatabase.child("url").setValue(Constants.DEFAULT_IMMO_PICTURE_URL);
+                                string_immo_image_url = Constants.DEFAULT_IMMO_PICTURE_URL;
+
                                 //dismissing the progress dialog
                                 progressDialog.dismiss();
 
@@ -373,14 +390,15 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
             immobilie = new Immobilie(
                     id, string_immo_name, string_image_name, string_immo_street, string_immo_housenumber, string_immo_postcode,
-                    string_immo_city, string_immo_state, string_immo_country, string_immo_sonstige_angaben_text, string_immo_etage,
-                    string_immo_etage_total, string_immo_wohnungsnummer, string_immo_kaufpreis, string_immo_preis_pro_qm,
+                    string_immo_city, string_immo_state, string_immo_country, string_immo_etage,
+                    string_immo_etage_total, string_immo_kaufpreis, string_immo_preis_pro_qm,
                     string_immo_warmmiete, string_immo_kaltmiete, string_immo_nebenkosten, string_immo_heizkosten, string_immo_mietzuschläge,
                     string_immo_gesamtmiete, string_immo_sonstige_kosten, string_immo_kaution_kosten, string_immo_kaution_text, string_immo_provision,
                     string_immo_baujahr, string_immo_sanierung, string_immo_wohnfläche, string_immo_grundstücksfläche, string_immo_nutzfläche,
                     string_immo_gesamtfläche, string_immo_zimmer_gesamt, string_immo_schlafzimmer, string_immo_badezimmer, string_immo_desc_text,
                     string_immo_location_text, string_immo_ausstattung_text, string_immo_ausgewählte_ausstattung, string_immo_art, string_immo_lage,
-                    string_immo_nutzungsart, string_immo_vermarktung, string_immo_alter
+                    string_immo_nutzungsart, string_immo_vermarktung, string_immo_alter, string_immo_heizungsart, string_immo_energieträger,
+                    string_immo_objektzustand, string_immo_ausstattung_quality, string_immo_energieausweis_yes_no, string_immo_energieausweis_type, string_immo_image_url
             );
 
             contact = new Contact(id, string_contact_lastname,
@@ -423,11 +441,9 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         string_immo_city = input_immo_city.getText().toString().trim();
         string_immo_state = input_immo_state.getText().toString().trim();
         string_immo_country = input_immo_country.getText().toString().trim();
-        string_immo_sonstige_angaben_text = input_immo_sonstige_angaben_text.getText().toString().trim();
         string_immo_etage = input_immo_etage.getText().toString().trim();
 
         string_immo_etage_total = input_immo_etage_total.getText().toString().trim();
-        string_immo_wohnungsnummer = input_immo_wohnungsnummer.getText().toString().trim();
         string_immo_kaufpreis = input_immo_kaufpreis.getText().toString().trim();
         string_immo_preis_pro_qm = input_immo_preis_pro_qm.getText().toString().trim();
         string_immo_warmmiete = input_immo_warmmiete.getText().toString().trim();
@@ -465,10 +481,19 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         string_contact_firma_email = input_contact_firma_email.getText().toString().trim();
         string_contact_firma_website = input_contact_firma_website.getText().toString().trim();
         string_immo_ausgewählte_ausstattung = immo_ausgewählte_ausstattung.getText().toString();
+
         string_immo_art = spinner_immo_art.getItemAtPosition(spinner_immo_art.getSelectedItemPosition()).toString();
         string_immo_alter = spinner_immo_alter.getItemAtPosition(spinner_immo_alter.getSelectedItemPosition()).toString();
         string_immo_lage = spinner_immo_lage.getItemAtPosition(spinner_immo_lage.getSelectedItemPosition()).toString();
         string_immo_vermarktung = spinner_immo_vermarktung.getItemAtPosition(spinner_immo_vermarktung.getSelectedItemPosition()).toString();
+
+
+        string_immo_heizungsart = spinner_immo_heizungsart.getItemAtPosition(spinner_immo_heizungsart.getSelectedItemPosition()).toString();
+        string_immo_energieträger = spinner_immo_energieträger.getItemAtPosition(spinner_immo_energieträger.getSelectedItemPosition()).toString();
+        string_immo_objektzustand = spinner_immo_objektzustand.getItemAtPosition(spinner_immo_objektzustand.getSelectedItemPosition()).toString();
+        string_immo_ausstattung_quality = spinner_immo_ausstattung_quality.getItemAtPosition(spinner_immo_ausstattung_quality.getSelectedItemPosition()).toString();
+        string_immo_energieausweis_yes_no = spinner_immo_energieausweis_yes_no.getItemAtPosition(spinner_immo_energieausweis_yes_no.getSelectedItemPosition()).toString();
+        string_immo_energieausweis_type = spinner_immo_energieausweis_type.getItemAtPosition(spinner_immo_energieausweis_type.getSelectedItemPosition()).toString();
 
 
     }
@@ -531,10 +556,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         input_immo_city.setText("");
         input_immo_state.setText("");
         input_immo_country.setText("");
-        input_immo_sonstige_angaben_text.setText("");
         input_immo_etage.setText("");
         input_immo_etage_total.setText("");
-        input_immo_wohnungsnummer.setText("");
         input_immo_kaufpreis.setText("");
         input_immo_preis_pro_qm.setText("");
         input_immo_warmmiete.setText("");
@@ -574,11 +597,6 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         input_contact_firma_email.setText("");
         input_contact_firma_website.setText("");
 
-        //set checkboxes to false
-        show_adress_checkbox.setChecked(false);
-        input_immo_heatingcost_included.setChecked(false);
-        input_immo_price_with_mwst.setChecked(false);
-        provisionspflichtig_checkbox.setChecked(false);
 
     }
 

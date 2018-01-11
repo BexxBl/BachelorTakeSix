@@ -22,7 +22,9 @@ public class InfoTabFragment extends Fragment {
             display_immo_preis_info_tab, display_immo_zimmeranzahl, display_immo_gesamtfläche,
             display_immo_ausstattung, display_immo_type, display_immo_etage, display_immo_wohnfläche,
             display_immo_zimmer_gesamt, display_immo_schlafzimmer, display_immo_badezimmer,
-            display_description_of_immo, display_location_info_of_immo, display_aussattung_info_of_immo;
+            display_description_of_immo, display_location_info_of_immo, display_aussattung_info_of_immo,
+            display_immo_baujahr, display_immo_objektzustand, display_immo_ausstattung_quality,
+            display_immo_heizungsart, display_immo_energieträger, display_immo_sanierung;
 
 
 
@@ -55,6 +57,12 @@ public class InfoTabFragment extends Fragment {
         display_description_of_immo = view.findViewById(R.id.display_description_of_immo);
         display_location_info_of_immo = view.findViewById(R.id.display_location_info_of_immo);
         display_aussattung_info_of_immo = view.findViewById(R.id.display_aussattung_info_of_immo);
+        display_immo_baujahr = view.findViewById(R.id.display_immo_baujahr);
+        display_immo_objektzustand = view.findViewById(R.id.display_immo_objektzustand);
+        display_immo_ausstattung_quality = view.findViewById(R.id.display_immo_ausstattung_quality);
+        display_immo_heizungsart = view.findViewById(R.id.display_immo_heizungsart);
+        display_immo_sanierung = view.findViewById(R.id.display_immo_sanierung);
+        display_immo_energieträger = view.findViewById(R.id.display_immo_energieträger);
 
         // return the view
         return view;

@@ -76,34 +76,7 @@
     <string name="add_new_Expose">Erstellen sie hier ihr neues Exposé</string>
     <string name="add_title">Exposé Titel</string>
     <string name="expose_type"> Art der Immobilie</string>
-    <string-array name="expose_types">
-        <item name="haus"> Haus</item>
-        <item name="wohnung"> Wohnung</item>
-        <item name="gastronomy"> Gastronomie</item>
-        <item name="office"> Büro</item>
-    </string-array>
-    <string-array name="vermarktung">
-        <item name="kauf"> Kauf</item>
-        <item name="miete"> Miete</item>
-    </string-array>
-    <string-array name="nutzungsart">
-        <item name="wohnen"> Wohnen</item>
-        <item name="gewerbe"> Gewerbe</item>
 
-    </string-array>
-    <string-array name="lage">
-        <item name="zentrum"> Zentrum</item>
-        <item name="nebenzentrum"> Nebenzentrum</item>
-        <item name="süden"> Süden</item>
-        <item name="westen"> Westen</item>
-        <item name="norden"> Norden</item>
-        <item name="osten"> Norden</item>
-    </string-array>
-    <string-array name="alter">
-        <item name="Neubau"> Neubau</item>
-        <item name="Altbau"> Altbau</item>
-
-    </string-array>
 
 
     <string name="adress_heading"> Adresse</string>
@@ -126,7 +99,6 @@
     <string name="publish"> Veröffentlichen</string>
     <string name="cancel"> Abbrechen</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 

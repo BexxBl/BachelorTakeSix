@@ -7,20 +7,36 @@ package com.webgalaxie.blischke.bachelortakesix.models;
 public class Immobilie {
 
     private String immoID, immo_name, image_name, immo_street, immo_housenumber, immo_postcode,
-            immo_city, immo_state, immo_country, immo_sonstige_angaben_text, immo_etage,
-            immo_etage_total, immo_wohnungsnummer,
+            immo_city, immo_state, immo_country, immo_etage,
+            immo_etage_total,
             immo_kaufpreis, immo_preis_pro_qm, immo_warmmiete, immo_kaltmiete, immo_nebenkosten,
             immo_heizkosten, immo_mietzuschläge, immo_gesamtmiete, immo_sonstige_kosten, immo_kaution_kosten, immo_kaution_text,
             immo_provision, immo_baujahr, immo_sanierung, immo_wohnfläche, immo_grundstücksfläche, immo_nutzfläche,
             immo_gesamtfläche, immo_zimmer_gesamt, immo_schlafzimmer, immo_badezimmer,
             immo_desc_text, immo_location_text, immo_ausstattung_text, immo_ausgewählte_ausstattung,
-            immo_art, immo_lage, immo_nutzungsart, immo_vermarktung, immo_alter;
+            immo_art, immo_lage, immo_nutzungsart, immo_vermarktung, immo_alter, immo_heizungsart, immo_energieträger,
+            immo_objektzustand, immo_ausstattung_quality, immo_energieausweis_yes_no, immo_energieausweis_type, immo_image_url;
 
     public Immobilie() {
     }
 
 
-    public Immobilie(String immoID, String immo_name, String image_name, String immo_street, String immo_housenumber, String immo_postcode, String immo_city, String immo_state, String immo_country, String immo_sonstige_angaben_text, String immo_etage, String immo_etage_total, String immo_wohnungsnummer, String immo_kaufpreis, String immo_preis_pro_qm, String immo_warmmiete, String immo_kaltmiete, String immo_nebenkosten, String immo_heizkosten, String immo_mietzuschläge, String immo_gesamtmiete, String immo_sonstige_kosten, String immo_kaution_kosten, String immo_kaution_text, String immo_provision, String immo_baujahr, String immo_sanierung, String immo_wohnfläche, String immo_grundstücksfläche, String immo_nutzfläche, String immo_gesamtfläche, String immo_zimmer_gesamt, String immo_schlafzimmer, String immo_badezimmer, String immo_desc_text, String immo_location_text, String immo_ausstattung_text, String immo_ausgewählte_ausstattung, String immo_art, String immo_lage, String immo_nutzungsart, String immo_vermarktung, String immo_alter) {
+    public Immobilie(String immoID, String immo_name, String image_name, String immo_street,
+                     String immo_housenumber, String immo_postcode, String immo_city,
+                     String immo_state, String immo_country, String immo_etage,
+                     String immo_etage_total, String immo_kaufpreis, String immo_preis_pro_qm,
+                     String immo_warmmiete, String immo_kaltmiete, String immo_nebenkosten,
+                     String immo_heizkosten, String immo_mietzuschläge, String immo_gesamtmiete,
+                     String immo_sonstige_kosten, String immo_kaution_kosten, String immo_kaution_text,
+                     String immo_provision, String immo_baujahr, String immo_sanierung,
+                     String immo_wohnfläche, String immo_grundstücksfläche, String immo_nutzfläche,
+                     String immo_gesamtfläche, String immo_zimmer_gesamt, String immo_schlafzimmer,
+                     String immo_badezimmer, String immo_desc_text, String immo_location_text,
+                     String immo_ausstattung_text, String immo_ausgewählte_ausstattung,
+                     String immo_art, String immo_lage, String immo_nutzungsart,
+                     String immo_vermarktung, String immo_alter, String immo_heizungsart, String immo_energieträger,
+                     String immo_objektzustand, String immo_ausstattung_quality, String immo_energieausweis_yes_no,
+                     String immo_energieausweis_type, String immo_image_url) {
         this.immoID = immoID;
         this.immo_name = immo_name;
         this.image_name = image_name;
@@ -30,10 +46,8 @@ public class Immobilie {
         this.immo_city = immo_city;
         this.immo_state = immo_state;
         this.immo_country = immo_country;
-        this.immo_sonstige_angaben_text = immo_sonstige_angaben_text;
         this.immo_etage = immo_etage;
         this.immo_etage_total = immo_etage_total;
-        this.immo_wohnungsnummer = immo_wohnungsnummer;
         this.immo_kaufpreis = immo_kaufpreis;
         this.immo_preis_pro_qm = immo_preis_pro_qm;
         this.immo_warmmiete = immo_warmmiete;
@@ -64,6 +78,18 @@ public class Immobilie {
         this.immo_nutzungsart = immo_nutzungsart;
         this.immo_vermarktung = immo_vermarktung;
         this.immo_alter = immo_alter;
+        this.immo_heizungsart = immo_heizungsart;
+        this.immo_energieträger = immo_energieträger;
+        this.immo_objektzustand = immo_objektzustand;
+        this.immo_ausstattung_quality = immo_ausstattung_quality;
+        this.immo_energieausweis_yes_no = immo_energieausweis_yes_no;
+        this.immo_energieausweis_type = immo_energieausweis_type;
+        this.immo_image_url = immo_image_url;
+
+    }
+
+    public String getImmo_image_url() {
+        return immo_image_url;
     }
 
     public String getImmoID() {
@@ -102,9 +128,6 @@ public class Immobilie {
         return immo_country;
     }
 
-    public String getImmo_sonstige_angaben_text() {
-        return immo_sonstige_angaben_text;
-    }
 
     public String getImmo_etage() {
         return immo_etage;
@@ -114,9 +137,6 @@ public class Immobilie {
         return immo_etage_total;
     }
 
-    public String getImmo_wohnungsnummer() {
-        return immo_wohnungsnummer;
-    }
 
     public String getImmo_kaufpreis() {
         return immo_kaufpreis;
@@ -232,5 +252,33 @@ public class Immobilie {
 
     public String getImmo_alter() {
         return immo_alter;
+    }
+
+    public String getImmo_kaution_text() {
+        return immo_kaution_text;
+    }
+
+    public String getImmo_heizungsart() {
+        return immo_heizungsart;
+    }
+
+    public String getImmo_energieträger() {
+        return immo_energieträger;
+    }
+
+    public String getImmo_objektzustand() {
+        return immo_objektzustand;
+    }
+
+    public String getImmo_ausstattung_quality() {
+        return immo_ausstattung_quality;
+    }
+
+    public String getImmo_energieausweis_yes_no() {
+        return immo_energieausweis_yes_no;
+    }
+
+    public String getImmo_energieausweis_type() {
+        return immo_energieausweis_type;
     }
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="heizungsart">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="ofen"> Ofenheizung</item>
+        <item name="Zentral"> Zentralheizung</item>
+        <item name="Fern"> Fernheizung</item>
+        <item name="Fußboden"> Fußbodenheizung</item>
+    </string-array>
+
+    <string-array name="energieträger">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="Öl"> Öl</item>
+        <item name="Gas"> Gas</item>
+        <item name="Elektro"> Elektro</item>
+        <item name="Fernwärme"> Fernwärme</item>
+        <item name="Solar"> Solar</item>
+        <item name="Alternativ"> Alternativ</item>
+        <item name="Erdwärme"> Erdwärme</item>
+
+    </string-array>
+    <string-array name="objektzustand">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="gehoben"> gehoben</item>
+        <item name="erstbezug"> Erstbezug</item>
+        <item name="erstbezug_nach_sanierung"> Erstbezug nach Sanierung</item>
+        <item name="neuwertig"> neuwertig</item>
+        <item name="saniert"> saniert</item>
+        <item name="modernisiert"> modernisiert</item>
+        <item name="renoviert"> renoviert</item>
+        <item name="gepflegt"> gepflegt</item>
+        <item name="renovierungsbedürftig"> renovierungsbedürftig</item>
+    </string-array>
+
+
+    <string-array name="ausstattung_quality">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="gehoben"> gehoben</item>
+        <item name="standard"> standard</item>
+        <item name="außergwöhnlich"> außergeöhnlich</item>
+    </string-array>
+    <string-array name="energieausweis_yes_no">
+        <item name="yes"> ja</item>d
+        <item name="no"> nein</item>d
+
+    </string-array>
+    <string-array name="energieausweistype">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="bedarfsausweis"> Bedarfsausweis</item>
+        <item name="verbrauchsausweis"> Verbrauchsausweis</item>
+    </string-array>
+
+
+    <string-array name="expose_types">
+        <item name="haus"> Haus</item>
+        <item name="wohnung"> Wohnung</item>
+    </string-array>
+    <string-array name="vermarktung">
+        <item name="kauf"> Kauf</item>
+        <item name="miete"> Miete</item>
+    </string-array>
+    <string-array name="nutzungsart">
+        <item name="wohnen"> Wohnen</item>
+
+    </string-array>
+    <string-array name="lage">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="zentrum"> Zentrum</item>
+        <item name="nebenzentrum"> Nebenzentrum</item>
+        <item name="süden"> Süden</item>
+        <item name="westen"> Westen</item>
+        <item name="norden"> Norden</item>
+        <item name="osten"> Osten</item>
+    </string-array>
+    <string-array name="alter">
+        <item name="keine Angabe"> k. A.</item>
+        <item name="Neubau"> Neubau</item>
+        <item name="Altbau"> Altbau</item>
+
+    </string-array>
+</resources>

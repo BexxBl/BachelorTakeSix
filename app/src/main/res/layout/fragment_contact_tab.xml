@@ -5,7 +5,9 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/contact_firm_name"
@@ -85,4 +87,5 @@
         android:layout_width="match_parent"
         android:layout_height="122dp"
         app:srcCompat="@drawable/icon_kontakt" />
+    </ScrollView>
 </LinearLayout>
