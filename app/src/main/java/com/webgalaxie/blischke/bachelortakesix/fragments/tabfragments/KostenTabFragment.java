@@ -12,27 +12,21 @@ import com.webgalaxie.blischke.bachelortakesix.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InfoTabFragment extends Fragment {
-
-    private static final String TAG = "INFO_TAB";
-    String immoID;
+public class KostenTabFragment extends Fragment {
+    private static final String TAG = "KOSTEN_TAB";
 
 
-    // Store instance variables based on arguments passed
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public KostenTabFragment() {
+        // Required empty public constructor
     }
+
 
     // Inflate the view for the fragment based on layout XML
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_info_tab, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_kosten_tab, container, false);
 
         return view;
     }
-
-
 }

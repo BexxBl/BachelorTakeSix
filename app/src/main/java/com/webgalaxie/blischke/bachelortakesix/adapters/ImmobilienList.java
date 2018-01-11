@@ -66,9 +66,9 @@ public class ImmobilienList extends ArrayAdapter <Immobilie> {
 
         // set the most relevant information of the immo object to the textviews
         textViewTitle.setText(immobilie.getImmo_name());
-        textViewType.setText(immobilie.getImmoID());
+        textViewType.setText(immobilie.getImmo_art() + " zum/ zur " + immobilie.getImmo_vermarktung());
         textViewStreetHousnumber.setText(immobilie.getImmo_street()+" "+immobilie.getImmo_housenumber());
-        textViewPLZCityCountry.setText(immobilie.getImmo_postcode() + " " + immobilie.getImmo_city() + "(" + immobilie.getImmo_state() + ", " + immobilie.getImmo_country() + ")");
+        textViewPLZCityCountry.setText(immobilie.getImmo_postcode() + " " + immobilie.getImmo_city() + " (" + immobilie.getImmo_state() + ", " + immobilie.getImmo_country() + ")");
         immo_size.setText(immobilie.getImmo_gesamtfläche());
         immo_rooms.setText(immobilie.getImmo_zimmer_gesamt());
         immo_beds.setText(immobilie.getImmo_schlafzimmer());
