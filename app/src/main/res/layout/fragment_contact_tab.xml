@@ -8,6 +8,7 @@
 
 
     <TextView
+        android:id="@+id/contact_firm_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Firma"
@@ -15,6 +16,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
+        android:id="@+id/contact_firm_website"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="www.webseite.de"
@@ -27,6 +29,7 @@
         android:layout_height="16dp" />
 
     <TextView
+        android:id="@+id/contact_firm_person"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Frau Dr. Maxine Mustermann"
@@ -38,15 +41,24 @@
 
 
     <TextView
+        android:id="@+id/contact_firm_street_housenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Straße 1"
         android:textAlignment="center" />
 
     <TextView
+        android:id="@+id/contact_firm_plz_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="08107 Musterstadt"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/contact_firm_state_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="(Sachsen, Deutschland)"
         android:textAlignment="center" />
 
     <Space
@@ -54,12 +66,14 @@
         android:layout_height="16dp" />
 
     <TextView
+        android:id="@+id/contact_firm_phonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="+49 0124566778"
         android:textAlignment="center" />
 
     <TextView
+        android:id="@+id/contact_firm_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/email_hint"
@@ -70,5 +84,5 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="122dp"
-        app:srcCompat="@drawable/Icon_kontakt" />
+        app:srcCompat="@drawable/icon_kontakt" />
 </LinearLayout>

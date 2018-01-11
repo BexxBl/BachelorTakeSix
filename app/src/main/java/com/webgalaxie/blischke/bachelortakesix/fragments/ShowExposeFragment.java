@@ -82,9 +82,11 @@ public class ShowExposeFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // get the string from the database
                 String immo_Name = String.valueOf(dataSnapshot.child("immo_name").getValue()).toString();
-
+                String immo_Type = String.valueOf(dataSnapshot.child("immo_art").getValue()).toString();
+                String immo_vermarktung = String.valueOf(dataSnapshot.child("immo_vermarktung").getValue()).toString();
                 // set immo name as toolbar title
                 toolbar.setTitle(immo_Name);
+                toolbar.setSubtitle("(" + immo_Type + " zur " + immo_vermarktung + ")");
             }
 
             @Override

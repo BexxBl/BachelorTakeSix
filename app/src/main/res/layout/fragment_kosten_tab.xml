@@ -42,6 +42,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_kaufpreis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -68,6 +69,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_preis_pro_qm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -93,6 +95,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_kaltmiete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -118,6 +121,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_warmmiete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -144,6 +148,7 @@
 
 
             <TextView
+                android:id="@+id/display_immo_nebenkosten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -169,6 +174,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_heizkosten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -195,6 +201,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_mietzuschläge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -220,6 +227,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_sonstige_kosten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -245,6 +253,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_gesamtmiete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -257,30 +266,6 @@
                 android:text=" €" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:text="Gesamtmiete:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:text="TextView" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:text=" €" />
-        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -295,6 +280,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_kaution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"
@@ -307,6 +293,7 @@
                 android:text=" €" />
 
             <TextView
+                android:id="@+id/display_immo_kaution_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="4"
@@ -327,6 +314,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/display_immo_provision"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="2"

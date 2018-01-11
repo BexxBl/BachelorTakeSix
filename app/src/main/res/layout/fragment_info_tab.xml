@@ -122,6 +122,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/display_immo_preis_info_tab"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="120 €"
@@ -141,6 +142,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/display_immo_zimmeranzahl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2"
@@ -160,6 +162,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/display_immo_gesamtfläche"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="56 qm"
@@ -189,6 +192,7 @@
                     android:layout_height="16dp" />
 
                 <TextView
+                    android:id="@+id/display_immo_ausstattung"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ausstattung" />
@@ -223,6 +227,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/display_immo_type"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -244,6 +249,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/display_immo_etage"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -265,6 +271,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/display_immo_wohnfläche"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -295,6 +302,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/display_immo_zimmer_gesamt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -316,6 +324,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/display_immo_schlafzimmer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -337,6 +346,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/display_immo_badezimmer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
