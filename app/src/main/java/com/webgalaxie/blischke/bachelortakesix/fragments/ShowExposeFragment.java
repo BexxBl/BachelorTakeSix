@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -42,25 +38,27 @@ public class ShowExposeFragment extends Fragment {
     ViewPager viewPager;
     TabLayout tablayout;
     private SectionsPageAdapter sectionsPageAdapter;
-    private DatabaseReference immoDataRef;
+    private DatabaseReference immoDataRef, contactDataRef;
     private Bundle oldbundle, newbundle;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private String userid;
     private Toolbar toolbar;
 
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // inflating the view
-        View v = inflater.inflate(R.layout.fragment_show_expose, container, false);
+        View view = inflater.inflate(R.layout.fragment_show_expose, container, false);
 
         // setup the Toolbar
-        toolbar = v.findViewById(R.id.toolbar);
+        toolbar = view.findViewById(R.id.toolbar);
 
 
         // get the expose id from the fragment
         oldbundle = getArguments();
         String immoID = oldbundle.getString("exposeID");
+        Toast.makeText(getContext(), immoID, Toast.LENGTH_SHORT).show();
 
         // get an instance of the FirebaseAuth
         auth = FirebaseAuth.getInstance();
@@ -75,6 +73,11 @@ public class ShowExposeFragment extends Fragment {
         immoDataRef = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN);
         immoDataRef = immoDataRef.child(userid).child(immoID);
 
+        contactDataRef = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_CONTACTS);
+        contactDataRef = contactDataRef.child(userid).child(immoID);
+
+
+
         // get title of Immo from database
 
         immoDataRef.addValueEventListener(new ValueEventListener() {
@@ -84,6 +87,7 @@ public class ShowExposeFragment extends Fragment {
                 String immo_Name = String.valueOf(dataSnapshot.child("immo_name").getValue()).toString();
                 String immo_Type = String.valueOf(dataSnapshot.child("immo_art").getValue()).toString();
                 String immo_vermarktung = String.valueOf(dataSnapshot.child("immo_vermarktung").getValue()).toString();
+
                 // set immo name as toolbar title
                 toolbar.setTitle(immo_Name);
                 toolbar.setSubtitle("(" + immo_Type + " zur " + immo_vermarktung + ")");
@@ -95,18 +99,19 @@ public class ShowExposeFragment extends Fragment {
             }
         });
 
+
         sectionsPageAdapter = new SectionsPageAdapter(getFragmentManager());
 
         // setup the view pager with the sectionsPageAdapter
-        viewPager = v.findViewById(R.id.viewpager);
+        viewPager = view.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         // create tablayout and set the id to tabs
-        tablayout = v.findViewById(R.id.tabs);
+        tablayout = view.findViewById(R.id.tabs);
         tablayout.setupWithViewPager(viewPager);
 
         // return the view
-        return v;
+        return view;
     }
 
 
@@ -116,65 +121,32 @@ public class ShowExposeFragment extends Fragment {
         oldbundle = getArguments();
         String immoID = oldbundle.getString("exposeID");
 
+        newbundle = new Bundle();
+        newbundle.putString("exposeID", immoID);
+
         // get an adapter
         SectionsPageAdapter adapter = new SectionsPageAdapter(getFragmentManager());
 
+        Fragment infoTabFragment = new InfoTabFragment();
+        Fragment kostenTabFragment = new KostenTabFragment();
+        Fragment contactTabFragment = new ContactTabFragment();
+        Fragment attachmentTabFragment = new AttachmentTabFragment();
+
+        // Add the immoID as an Argument
+        infoTabFragment.setArguments(newbundle);
+        kostenTabFragment.setArguments(newbundle);
+        attachmentTabFragment.setArguments(newbundle);
+        contactTabFragment.setArguments(newbundle);
+
         // add the fragements to the adapter
-        adapter.addFragment(new InfoTabFragment(), "Infos", immoID);
-        adapter.addFragment(new KostenTabFragment(), "Kosten", immoID);
-        adapter.addFragment(new ContactTabFragment(), "Kontakt", immoID);
-        adapter.addFragment(new AttachmentTabFragment(), "Dokumente", immoID);
+        adapter.addFragment(infoTabFragment, "Infos", immoID);
+        adapter.addFragment(kostenTabFragment, "Kosten", immoID);
+        adapter.addFragment(contactTabFragment, "Kontakt", immoID);
+        adapter.addFragment(attachmentTabFragment, "Dokumente", immoID);
 
         // set the adapter to the view pager
         viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.showexposemenu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final FragmentManager manager = getFragmentManager();
-
-        switch (item.getItemId()) {
-            case R.id.edit_expose:
-                Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
-
-                /*
-                Fragment editExpose = new EditExposeFragment();
-                manager.beginTransaction().replace(R.id.content_frame,editExpose).commit();
-                '*/
-                break;
-            case R.id.delete_expose:
-                Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
-                /*
-                final DatabaseReference immoDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN).child(userid);
-                immoDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //immoDatabase.child("immoID").removeValue();
-                        Fragment showAllExpose = new ShowExposeFragment();
-                        manager.beginTransaction().replace(R.id.content_frame, showAllExpose).commit();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-                */
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

@@ -1,91 +1,91 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    >
 
-    <TextView
-        android:id="@+id/contact_firm_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Firma"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/contact_firm_website"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="www.webseite.de"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/contact_firm_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Firma"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        <TextView
+            android:id="@+id/contact_firm_website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="www.webseite.de"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/contact_firm_person"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Frau Dr. Maxine Mustermann"
-        android:textAlignment="center" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
+        <TextView
+            android:id="@+id/contact_firm_person"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Frau Dr. Maxine Mustermann"
+            android:textAlignment="center" />
 
-
-    <TextView
-        android:id="@+id/contact_firm_street_housenumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Straße 1"
-        android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/contact_firm_plz_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="08107 Musterstadt"
-        android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/contact_firm_state_country"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="(Sachsen, Deutschland)"
-        android:textAlignment="center" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="16dp" />
-
-    <TextView
-        android:id="@+id/contact_firm_phonenumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="+49 0124566778"
-        android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/contact_firm_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/email_hint"
-        android:textAlignment="center" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="122dp"
-        app:srcCompat="@drawable/icon_kontakt" />
-    </ScrollView>
-</LinearLayout>
+        <TextView
+            android:id="@+id/contact_firm_street_housenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Straße 1"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/contact_firm_plz_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="08107 Musterstadt"
+            android:textAlignment="center" />
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:id="@+id/contact_firm_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+49 0124566778"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/contact_firm_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email_hint"
+            android:textAlignment="center" />
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="122dp"
+            app:srcCompat="@drawable/icon_kontakt" />
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
