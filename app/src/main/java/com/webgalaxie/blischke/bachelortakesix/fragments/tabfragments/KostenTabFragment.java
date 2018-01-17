@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.fragments.EditExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 /**
@@ -39,7 +40,7 @@ public class KostenTabFragment extends Fragment {
             display_immo_nebenkosten, display_immo_heizkosten, display_immo_mietzuschläge,
             display_immo_sonstige_kosten, display_immo_gesamtmiete, display_immo_kaution,
             display_immo_kaution_text, display_immo_provision;
-    private DatabaseReference immoDataRef;
+    private DatabaseReference immoDataRef, pictureDataRef, contactDataRef;
 
     public KostenTabFragment() {
         // Required empty public constructor
@@ -75,6 +76,10 @@ public class KostenTabFragment extends Fragment {
 
         // get an database reference to the immo
         immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
+        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
+
+
         immoDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,13 +124,15 @@ public class KostenTabFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final FragmentManager manager = getFragmentManager();
+        // get the expose id
+        bundle = getArguments();
+        immoID = bundle.getString("exposeID");
+
 
         switch (item.getItemId()) {
             case R.id.edit_expose:
                 Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
-                // get the expose id
-                bundle = getArguments();
-                immoID = bundle.getString("exposeID");
+
                 // put the immoID into new Bundle
                 newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
@@ -135,16 +142,19 @@ public class KostenTabFragment extends Fragment {
                 editExpose.setArguments(newBundle);
                 // switch the fragment
                 manager.beginTransaction().replace(R.id.content_frame, editExpose).commit();
+
                 break;
             case R.id.delete_expose:
                 Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
-                /*
-                final DatabaseReference immoDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN).child(userid);
-                immoDatabase.addValueEventListener(new ValueEventListener() {
+
+                immoDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //immoDatabase.child("immoID").removeValue();
-                        Fragment showAllExpose = new ShowExposeFragment();
+                        immoDataRef.removeValue();
+                        pictureDataRef.removeValue();
+                        contactDataRef.removeValue();
+
+                        Fragment showAllExpose = new ShowAllExposeFragment();
                         manager.beginTransaction().replace(R.id.content_frame, showAllExpose).commit();
                     }
 
@@ -153,7 +163,7 @@ public class KostenTabFragment extends Fragment {
 
                     }
                 });
-                */
+
                 break;
 
         }

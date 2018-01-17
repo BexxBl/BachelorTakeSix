@@ -15,7 +15,6 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentTitleList = new ArrayList<>();
-    private final List<String> exposeIDList = new ArrayList<>();
 
 
     // constructor
@@ -28,9 +27,6 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         return fragmentTitleList.get(position);
     }
 
-    public CharSequence getExposeID(int position) {
-        return exposeIDList.get(position);
-    }
 
     @Override
     public Fragment getItem(int position) {
@@ -43,10 +39,9 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     }
 
     // method to add the fragment and the titles to the lists
-    public void addFragment(Fragment fragment, String title, String exposeID) {
+    public void addFragment(Fragment fragment, String title) {
         fragmentList.add(fragment);
         fragmentTitleList.add(title);
-        exposeIDList.add(exposeID);
 
 
     }

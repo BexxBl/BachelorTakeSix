@@ -5,8 +5,9 @@ package com.webgalaxie.blischke.bachelortakesix.other;
  */
 
 public class Constants {
-    public static final String STORAGE_PATH_UPLOADS = "ImmoFirstPictureUploads/";
-    public static final String DATABASE_PATH_UPLOADS = "ImmoFirstPictureUploads";
+    public static final String STORAGE_PATH_UPLOADS = "ImmoPictureUploads/";
+    public static final String DATABASE_PATH_UPLOADS = "ImmoPictureUploads";
+    public static final String STORAGE_PATH_PROFIL_PICTURES = "ProfilBilder/";
     public static final String DATABASE_PATH_IMMOBILIEN = "Immobilien";
     public static final String DATABASE_PATH_USERS = "Users";
     public static final String DATABASE_PATH_CONTACTS = "Contacts";

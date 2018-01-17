@@ -295,7 +295,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
             String id = pushedDataRef.getKey();
 
             // uploading the Picture
-            pictureStorageReference = FirebaseStorage.getInstance().getReference();
+            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
             pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id);
             //checking if file is available
             if (filePath != null) {

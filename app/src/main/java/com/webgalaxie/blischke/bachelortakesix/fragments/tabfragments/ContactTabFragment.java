@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.fragments.EditExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 
@@ -49,7 +50,7 @@ String lastname;
     private TextView contact_firm_name, contact_firm_website, contact_firm_person,
             contact_firm_street_housenumber, contact_firm_plz_city,
             contact_firm_phonenumber, contact_firm_email;
-    private DatabaseReference contactDataRef;
+    private DatabaseReference contactDataRef, immoDataRef, pictureDataRef;
 
     public ContactTabFragment() {
         // Required empty public constructor
@@ -73,6 +74,9 @@ String lastname;
         immoID = bundle.getString("exposeID");
 
 
+        // get database Reference
+
+
         // find view by id
         contact_firm_name = view.findViewById(R.id.contact_firm_name);
         contact_firm_website = view.findViewById(R.id.contact_firm_website);
@@ -89,6 +93,12 @@ String lastname;
     @Override
     public void onStart() {
         super.onStart();
+
+        immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
+        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
+
+
 
         // get the reference to the database
         contactDataRef = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_CONTACTS).child(user_id);
@@ -141,13 +151,15 @@ String lastname;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final FragmentManager manager = getFragmentManager();
+        // get the expose id
+        bundle = getArguments();
+        immoID = bundle.getString("exposeID");
+
 
         switch (item.getItemId()) {
             case R.id.edit_expose:
                 Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
-                // get the expose id
-                bundle = getArguments();
-                immoID = bundle.getString("exposeID");
+
                 // put the immoID into new Bundle
                 newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
@@ -157,16 +169,19 @@ String lastname;
                 editExpose.setArguments(newBundle);
                 // switch the fragment
                 manager.beginTransaction().replace(R.id.content_frame, editExpose).commit();
+
                 break;
             case R.id.delete_expose:
                 Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
-                /*
-                final DatabaseReference immoDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN).child(userid);
-                immoDatabase.addValueEventListener(new ValueEventListener() {
+
+                immoDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //immoDatabase.child("immoID").removeValue();
-                        Fragment showAllExpose = new ShowExposeFragment();
+                        immoDataRef.removeValue();
+                        pictureDataRef.removeValue();
+                        contactDataRef.removeValue();
+
+                        Fragment showAllExpose = new ShowAllExposeFragment();
                         manager.beginTransaction().replace(R.id.content_frame, showAllExpose).commit();
                     }
 
@@ -175,7 +190,7 @@ String lastname;
 
                     }
                 });
-                */
+
                 break;
 
         }

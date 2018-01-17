@@ -691,7 +691,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
 
             // uploading the Picture
-            pictureStorageReference = FirebaseStorage.getInstance().getReference();
+            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
 
 
             //checking if file is available

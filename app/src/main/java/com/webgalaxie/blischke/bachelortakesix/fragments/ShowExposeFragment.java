@@ -100,7 +100,6 @@ public class ShowExposeFragment extends Fragment {
         });
 
 
-        sectionsPageAdapter = new SectionsPageAdapter(getFragmentManager());
 
         // setup the view pager with the sectionsPageAdapter
         viewPager = view.findViewById(R.id.viewpager);
@@ -139,10 +138,10 @@ public class ShowExposeFragment extends Fragment {
         contactTabFragment.setArguments(newbundle);
 
         // add the fragements to the adapter
-        adapter.addFragment(infoTabFragment, "Infos", immoID);
-        adapter.addFragment(kostenTabFragment, "Kosten", immoID);
-        adapter.addFragment(contactTabFragment, "Kontakt", immoID);
-        adapter.addFragment(attachmentTabFragment, "Dokumente", immoID);
+        adapter.addFragment(infoTabFragment, "Infos");
+        adapter.addFragment(kostenTabFragment, "Kosten");
+        adapter.addFragment(contactTabFragment, "Kontakt");
+        adapter.addFragment(attachmentTabFragment, "Dokumente");
 
         // set the adapter to the view pager
         viewPager.setAdapter(adapter);

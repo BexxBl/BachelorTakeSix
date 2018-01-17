@@ -138,7 +138,7 @@ public class MyAccountFragment extends Fragment {
                 //checking if file is available
                 if (filePath != null) {
                     //getting the storage reference
-                    StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+                    StorageReference sRef = pictureStorageReference.child(user.getUid()).child(Constants.STORAGE_PATH_PROFIL_PICTURES + System.currentTimeMillis() + "." + getFileExtension(filePath));
 
                     //adding the file to reference
                     sRef.putFile(filePath)

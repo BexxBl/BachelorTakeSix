@@ -15,8 +15,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.fragments.EditExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,8 @@ public class AttachmentTabFragment extends Fragment {
 
     Bundle bundle, newBundle;
     String immoID;
+
+    private DatabaseReference immoDataRef, pictureDataRef, contactDataRef;
 
     public AttachmentTabFragment() {
         // Required empty public constructor
@@ -52,6 +61,12 @@ public class AttachmentTabFragment extends Fragment {
         immoID = bundle.getString("exposeID");
 
 
+        immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
+        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
+
+
+
         return view;
     }
 
@@ -70,13 +85,15 @@ public class AttachmentTabFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final FragmentManager manager = getFragmentManager();
+        // get the expose id
+        bundle = getArguments();
+        immoID = bundle.getString("exposeID");
+
 
         switch (item.getItemId()) {
             case R.id.edit_expose:
                 Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
-                // get the expose id
-                bundle = getArguments();
-                immoID = bundle.getString("exposeID");
+
                 // put the immoID into new Bundle
                 newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
@@ -90,13 +107,15 @@ public class AttachmentTabFragment extends Fragment {
                 break;
             case R.id.delete_expose:
                 Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
-                /*
-                final DatabaseReference immoDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN).child(userid);
-                immoDatabase.addValueEventListener(new ValueEventListener() {
+
+                immoDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        //immoDatabase.child("immoID").removeValue();
-                        Fragment showAllExpose = new ShowExposeFragment();
+                        immoDataRef.removeValue();
+                        pictureDataRef.removeValue();
+                        contactDataRef.removeValue();
+
+                        Fragment showAllExpose = new ShowAllExposeFragment();
                         manager.beginTransaction().replace(R.id.content_frame, showAllExpose).commit();
                     }
 
@@ -105,7 +124,7 @@ public class AttachmentTabFragment extends Fragment {
 
                     }
                 });
-                */
+
                 break;
 
         }
