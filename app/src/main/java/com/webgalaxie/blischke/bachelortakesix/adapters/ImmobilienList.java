@@ -50,7 +50,6 @@ public class ImmobilienList extends ArrayAdapter <Immobilie> {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         userid = user.getUid();
-        String immoID = immobilie.getImmoID();
 
 
         // get references to the view elements in the layout for populating the data

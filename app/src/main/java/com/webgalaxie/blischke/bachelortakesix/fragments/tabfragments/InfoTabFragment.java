@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -138,23 +137,6 @@ public class InfoTabFragment extends Fragment {
             }
         });
 
-
-        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
-        pictureDataRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot != null) {
-                    Glide.with(getContext()).load(String.valueOf(dataSnapshot.child("url").getValue()).toString()).into(immo_first_pic);
-                } else {
-                    Glide.with(getContext()).load(Constants.DEFAULT_IMMO_PICTURE_URL).into(immo_first_pic);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         // return the view
         return view;

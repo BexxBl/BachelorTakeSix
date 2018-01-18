@@ -1,0 +1,55 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.webgalaxie.blischke.bachelortakesix.fragments.AddAttachmentFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/chooseImageBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_signup"
+            android:text="Bild auswählen"
+            android:textColor="@color/manu_text" />
+
+        <ImageView
+            android:id="@+id/showSelectedImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <EditText
+            android:id="@+id/imageNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/addValueBTN"
+            android:layout_below="@+id/addValueBTN"
+            android:ems="10"
+            android:hint="Dateiname"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/addImageBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_alignStart="@+id/editText"
+            android:layout_below="@+id/editText"
+            android:layout_marginTop="27dp"
+            android:background="@drawable/background_signup"
+            android:text="Bild hinzufügen"
+            android:textColor="@color/manu_text" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -110,8 +110,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
     // variables for firebase
     private Uri filePath;
-    private StorageReference pictureStorageReference;
-    private DatabaseReference pictureDatabase, immoDatabase, contactDatabase;
+    private StorageReference pictureStorageReference, attachmentStorageReference;
+    private DatabaseReference pictureDatabase, immoDatabase, contactDatabase, attachmentDatabase;
 
 
     private FirebaseUser user;
@@ -285,7 +285,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
         //displaying progress dialog while image is uploading
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setTitle("Expose wird veröffentlicht hochladen");
+        progressDialog.setTitle("Expose wird veröffentlicht");
         progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochegladen.");
         progressDialog.show();
 
@@ -295,7 +295,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
             String id = pushedDataRef.getKey();
 
             // uploading the Picture
-            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
+            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(id);
             pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id);
             //checking if file is available
             if (filePath != null) {
@@ -318,7 +318,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
                                 PictureUpload upload = new PictureUpload(imageName, imageDownloadURL);
 
                                 //adding an upload to firebase database
-                                pictureDatabase.child("url").setValue(imageDownloadURL);
+                                pictureDatabase.child(imageName).child("url").setValue(imageDownloadURL);
                                 string_immo_image_url = imageDownloadURL;
 
 
