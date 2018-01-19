@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.fragments.EditExposeFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.EditExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 /**
@@ -91,13 +92,14 @@ public class InfoTabFragment extends Fragment {
 
         // get an database reference to the immo
         immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
-        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
         contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
 
         // add the ValueEventListener
         immoDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 immoIDdisplay.setText(String.valueOf(dataSnapshot.child("immoID").getValue()).toString());
                 display_adress_street_housenumber.setText(String.valueOf(dataSnapshot.child("immo_street").getValue()).toString() +
                         " " + String.valueOf(dataSnapshot.child("immo_housenumber").getValue()).toString());
@@ -128,6 +130,19 @@ public class InfoTabFragment extends Fragment {
                 display_immo_baujahr.setText(String.valueOf(dataSnapshot.child("immo_baujahr").getValue()).toString());
                 display_immo_energieausweis_type.setText(String.valueOf(dataSnapshot.child("immo_energieausweis_type").getValue()).toString());
                 display_immo_energieausweis_y_n.setText(String.valueOf(dataSnapshot.child("immo_energieausweis_yes_no").getValue()).toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        pictureDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Glide.with(getContext()).load(String.valueOf(dataSnapshot.child("url").getValue()).toString()).into(immo_first_pic);
 
             }
 

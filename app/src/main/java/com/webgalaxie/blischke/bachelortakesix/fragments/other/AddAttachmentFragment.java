@@ -1,4 +1,4 @@
-package com.webgalaxie.blischke.bachelortakesix.fragments;
+package com.webgalaxie.blischke.bachelortakesix.fragments.other;
 
 
 import android.app.ProgressDialog;
@@ -31,7 +31,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.models.AttachmentUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 import static android.app.Activity.RESULT_OK;
@@ -89,11 +90,9 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.chooseImageBTN:
-                Toast.makeText(getContext(), "Bild auswählen", Toast.LENGTH_SHORT).show();
                 choosePicture();
                 break;
             case R.id.addImageBTN:
-                Toast.makeText(getContext(), "Bild hochladen", Toast.LENGTH_SHORT).show();
                 saveImage();
                 break;
         }
@@ -128,7 +127,6 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
         // get the expose id
         bundle = getArguments();
         immoID = bundle.getString("exposeID");
-        Toast.makeText(getContext(), immoID, Toast.LENGTH_SHORT).show();
 
 
         // get an reference to the current user and his id
@@ -147,7 +145,7 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
 
             // uploading the Picture
             pictureStorageRef = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(immoID);
-            pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(immoID);
+            pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(immoID).child(Constants.DATABASE_PATH_ATTACHMENTS);
             //checking if file is available
             if (filePath != null) {
 
@@ -168,7 +166,7 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
                                 String imageDownloadURL = taskSnapshot.getDownloadUrl().toString();
 
                                 //creating the upload object to store uploaded image details
-                                PictureUpload upload = new PictureUpload(imageName, imageDownloadURL);
+                                AttachmentUpload upload = new AttachmentUpload(imageName, imageDownloadURL, id);
 
 
                                 //adding an upload to firebase database

@@ -11,6 +11,10 @@ public class Constants {
     public static final String DATABASE_PATH_IMMOBILIEN = "Immobilien";
     public static final String DATABASE_PATH_USERS = "Users";
     public static final String DATABASE_PATH_CONTACTS = "Contacts";
+    public static final String DATABASE_PATH_IMMO_FIRST_PICTURE = "ImmoFirstPicture";
+    public static final String DATABASE_PATH_ATTACHMENTS = "Attachments";
+
+
     public static final int PICK_IMAGE_REQUEST = 234;
 
     public static final String DEFAULT_USER_PROFIL_PICTURE_URL = "https://firebasestorage.googleapis.com/v0/b/myimmoexpose.appspot.com/o/defaults%2Fuser.png?alt=media&token=5b631b0b-6941-40e2-9e4a-0704b44a2066";

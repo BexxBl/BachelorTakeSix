@@ -21,8 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.fragments.EditExposeFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.EditExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 

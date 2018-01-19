@@ -1,4 +1,4 @@
-package com.webgalaxie.blischke.bachelortakesix.fragments;
+package com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.webgalaxie.blischke.bachelortakesix.fragments;
+package com.webgalaxie.blischke.bachelortakesix.fragments.other;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.webgalaxie.blischke.bachelortakesix.R;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.AddNewExpose;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
 
 
 /**

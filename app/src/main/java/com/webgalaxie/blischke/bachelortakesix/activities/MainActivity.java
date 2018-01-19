@@ -25,9 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.fragments.AddNewExpose;
-import com.webgalaxie.blischke.bachelortakesix.fragments.MyAccountFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.AddNewExpose;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.MyAccountFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

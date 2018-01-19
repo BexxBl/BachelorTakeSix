@@ -4,6 +4,7 @@ package com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,10 +29,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.adapters.AttachmentList;
-import com.webgalaxie.blischke.bachelortakesix.fragments.AddAttachmentFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.EditExposeFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
-import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.EditExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.other.AddAttachmentFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.other.BottomSheetFragment;
+import com.webgalaxie.blischke.bachelortakesix.models.AttachmentUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 import java.util.ArrayList;
@@ -50,8 +54,9 @@ public class AttachmentTabFragment extends Fragment {
     // Button to add Attachments to the Expose
     Button addAtachments;
     ListView show_all_attachments_list;
-    List<PictureUpload> pictureUploads;
-    private DatabaseReference immoDataRef, pictureDataRef, contactDataRef;
+    List<AttachmentUpload> attachmentUploads;
+    RelativeLayout relativLayout;
+    private DatabaseReference immoDataRef, pictureDataRef, contactDataRef, attachmentDataRef;
     private StorageReference pictureStorageRef;
 
     public AttachmentTabFragment() {
@@ -68,7 +73,7 @@ public class AttachmentTabFragment extends Fragment {
         // get reference to the view elements
         addAtachments = view.findViewById(R.id.addAtachments);
         show_all_attachments_list = view.findViewById(R.id.show_all_attachments_list);
-
+        relativLayout = view.findViewById(R.id.relativLayout);
 
 
         // get the current user
@@ -97,6 +102,7 @@ public class AttachmentTabFragment extends Fragment {
 
         // get reference to the database and storage
         immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
+        attachmentDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_ATTACHMENTS);
         pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
         contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
         pictureStorageRef = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
@@ -169,29 +175,45 @@ public class AttachmentTabFragment extends Fragment {
     public void onStart() {
         super.onStart();
         // attaching the ValueEventListener
-        pictureDataRef.addValueEventListener(new ValueEventListener() {
+        attachmentDataRef.addValueEventListener(new ValueEventListener() {
 
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // check if there are values in the database
                 if (dataSnapshot.getValue() != null) {
-                    pictureUploads = new ArrayList<>();
+                    attachmentUploads = new ArrayList<AttachmentUpload>();
 
+                    attachmentUploads.clear();
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        PictureUpload pictureUpload = postSnapshot.getValue(PictureUpload.class);
+                        AttachmentUpload attachmentUpload = postSnapshot.getValue(AttachmentUpload.class);
                         // adding the picture to the list
-                        pictureUploads.add(pictureUpload);
+                        attachmentUploads.add(attachmentUpload);
 
-                        /*String val = postSnapshot.getValue(String.class);
-                        PictureUpload pictureUpload = new PictureUpload(postSnapshot.getKey(), val);
-                        pictureUploads.add(pictureUpload);*/
                     }
 
                     // creating the List Adapter and add him to the Listview
-                    final AttachmentList attachmentAdapter = new AttachmentList((Activity) getContext(), pictureUploads);
+                    final AttachmentList attachmentAdapter = new AttachmentList((Activity) getContext(), attachmentUploads);
                     show_all_attachments_list.setAdapter(attachmentAdapter);
+
+                    // set the onClickListener on the image attachments to delete them
+                    show_all_attachments_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            //get the id of the clicked immo
+                            AttachmentUpload attachmentUpload = (AttachmentUpload) show_all_attachments_list.getItemAtPosition(position);
+                            String attachmentID = attachmentUpload.getId();
+
+                            BottomSheetDialogFragment bottomSheetDialogFragment = new BottomSheetFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("attachmentID", attachmentID);
+                            bottomSheetDialogFragment.setArguments(bundle);
+                            bottomSheetDialogFragment.show(getFragmentManager(), bottomSheetDialogFragment.getTag());
+
+                        }
+                    });
 
 
                 }

@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
+import com.webgalaxie.blischke.bachelortakesix.models.AttachmentUpload;
 
 import java.util.List;
 
@@ -23,19 +23,19 @@ import java.util.List;
  * Created by Bexx on 22.12.17.
  */
 
-public class AttachmentList extends ArrayAdapter<PictureUpload> {
+public class AttachmentList extends ArrayAdapter<AttachmentUpload> {
 
-    List<PictureUpload> pictureUploads;
+    List<AttachmentUpload> attachmentUploads;
     DatabaseReference pictureDatabase;
     FirebaseUser user;
     String userid;
     private Activity context;
 
     // Constructor
-    public AttachmentList(Activity context, List<PictureUpload> pictureUploads) {
-        super(context, R.layout.layout_expose_list, pictureUploads);
+    public AttachmentList(Activity context, List<AttachmentUpload> attachmentUploads) {
+        super(context, R.layout.layout_attachment_list, attachmentUploads);
         this.context = context;
-        this.pictureUploads = pictureUploads;
+        this.attachmentUploads = attachmentUploads;
 
     }
 
@@ -47,7 +47,7 @@ public class AttachmentList extends ArrayAdapter<PictureUpload> {
         final View listViewItem = inflater.inflate(R.layout.layout_attachment_list, null, true);
 
         // get the data item for this position
-        PictureUpload pictureUpload = pictureUploads.get(position);
+        AttachmentUpload attachmentUpload = attachmentUploads.get(position);
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -58,9 +58,9 @@ public class AttachmentList extends ArrayAdapter<PictureUpload> {
         TextView textViewTitle = listViewItem.findViewById(R.id.attachmentImageNameDisplay);
         ImageView attachmentImage = listViewItem.findViewById(R.id.attachmentImageView);
 
-        textViewTitle.setText(pictureUpload.getName());
+        textViewTitle.setText(attachmentUpload.getName());
 
-        Glide.with(getContext()).load(pictureUpload.getUrl()).into(attachmentImage);
+        Glide.with(getContext()).load(attachmentUpload.getUrl()).into(attachmentImage);
 
 
         // return the listview item to render

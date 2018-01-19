@@ -1,14 +1,12 @@
-package com.webgalaxie.blischke.bachelortakesix.fragments;
+package com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +47,6 @@ import com.webgalaxie.blischke.bachelortakesix.models.Immobilie;
 import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -242,7 +240,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
         // get an reference to the database where the immo objects are stored
         immoDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
         contactDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
-        pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
 
 
         //set up the onClickListener for the Buttons
@@ -322,6 +320,19 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
             }
         });
 
+        pictureDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Glide.with(getContext()).load(String.valueOf(dataSnapshot.child("url").getValue()).toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         //return the view
         return v;
     }
@@ -384,12 +395,8 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
-                showPictureOfImmoView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Glide.with(getContext()).load(filePath).into(showPictureOfImmoView);
+
         }
     }
 
@@ -403,7 +410,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
         Fragment showAllExposeFragment = new ShowAllExposeFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).addToBackStack(null).commit();
     }
 
     private void chooseAusstattung() {
@@ -694,6 +701,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
             pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
 
 
+
             //checking if file is available
             if (filePath != null) {
 
@@ -790,7 +798,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
 
         } else {
-            Toast.makeText(getContext(), "Neue Immobilie hinzufügen ist fehlgeschlagen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), " Immobilie bearbeiten ist fehlgeschlagen", Toast.LENGTH_SHORT).show();
             input_immo_name.setError("Geben Sie mindestens den Titel der Immobilie an!");
             input_immo_name.requestFocus();
         }

@@ -1,4 +1,4 @@
-package com.webgalaxie.blischke.bachelortakesix.fragments;
+package com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments;
 
 
 import android.app.AlertDialog;
@@ -6,10 +6,8 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +45,6 @@ import com.webgalaxie.blischke.bachelortakesix.models.Immobilie;
 import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -296,7 +294,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
             // uploading the Picture
             pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(id);
-            pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id);
+            pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
             //checking if file is available
             if (filePath != null) {
 
@@ -318,7 +316,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
                                 PictureUpload upload = new PictureUpload(imageName, imageDownloadURL);
 
                                 //adding an upload to firebase database
-                                pictureDatabase.child(imageName).child("url").setValue(imageDownloadURL);
+                                pictureDatabase.child("url").setValue(imageDownloadURL);
                                 string_immo_image_url = imageDownloadURL;
 
 
@@ -524,12 +522,8 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
-                showPictureOfImmoView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Glide.with(getContext()).load(filePath).into(showPictureOfImmoView);
+
         }
     }
 
@@ -543,7 +537,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
         Fragment showAllExposeFragment = new ShowAllExposeFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).addToBackStack(null).commit();
     }
 
     private void clearInputs() {

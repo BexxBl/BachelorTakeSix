@@ -1,4 +1,4 @@
-package com.webgalaxie.blischke.bachelortakesix.fragments;
+package com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -145,7 +145,6 @@ public class MyAccountFragment extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
 
                                     String imageName = input_profil_image_name.getText().toString().trim();
                                     String imageDownloadURL = taskSnapshot.getDownloadUrl().toString();
