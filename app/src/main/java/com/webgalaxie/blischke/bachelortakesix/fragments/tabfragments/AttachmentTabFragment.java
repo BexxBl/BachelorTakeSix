@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +32,7 @@ import com.webgalaxie.blischke.bachelortakesix.fragments.ShowAllExposeFragment;
 import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,6 +68,7 @@ public class AttachmentTabFragment extends Fragment {
         // get reference to the view elements
         addAtachments = view.findViewById(R.id.addAtachments);
         show_all_attachments_list = view.findViewById(R.id.show_all_attachments_list);
+
 
 
         // get the current user
@@ -127,7 +128,6 @@ public class AttachmentTabFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.edit_expose:
-                Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
 
                 // put the immoID into new Bundle
                 newBundle = new Bundle();
@@ -141,7 +141,6 @@ public class AttachmentTabFragment extends Fragment {
 
                 break;
             case R.id.delete_expose:
-                Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
 
                 immoDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -177,15 +176,17 @@ public class AttachmentTabFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // check if there are values in the database
                 if (dataSnapshot.getValue() != null) {
+                    pictureUploads = new ArrayList<>();
 
-                    // clear the list of immos
-                    pictureUploads.clear();
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        // getting the immo
                         PictureUpload pictureUpload = postSnapshot.getValue(PictureUpload.class);
-                        // adding the immo to the list
+                        // adding the picture to the list
                         pictureUploads.add(pictureUpload);
+
+                        /*String val = postSnapshot.getValue(String.class);
+                        PictureUpload pictureUpload = new PictureUpload(postSnapshot.getKey(), val);
+                        pictureUploads.add(pictureUpload);*/
                     }
 
                     // creating the List Adapter and add him to the Listview

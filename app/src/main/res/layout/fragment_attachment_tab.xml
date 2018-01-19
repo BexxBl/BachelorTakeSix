@@ -1,21 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-
-    android:padding="16dp"
     tools:context="com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.AttachmentTabFragment">
 
-    <Button
-        android:id="@+id/addAtachments"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_signup"
-        android:text="Anhänge hinzufügen"
-        android:textColor="@android:color/white" />
+        android:orientation="vertical">
 
-    <ListView
+        <Button
+            android:id="@+id/addAtachments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/background_signup"
+            android:text="Anhänge hinzufügen"
+            android:textColor="@android:color/white" />
+
+        <ListView
         android:id="@+id/show_all_attachments_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,4 +27,6 @@
         android:layout_alignParentTop="true" />
 
 
-</FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

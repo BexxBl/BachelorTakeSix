@@ -44,7 +44,7 @@ public class AttachmentList extends ArrayAdapter<PictureUpload> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         // inflate the custom layout for the listitems
         LayoutInflater inflater = context.getLayoutInflater();
-        final View listViewItem = inflater.inflate(R.layout.layout_expose_list, null, true);
+        final View listViewItem = inflater.inflate(R.layout.layout_attachment_list, null, true);
 
         // get the data item for this position
         PictureUpload pictureUpload = pictureUploads.get(position);
@@ -55,11 +55,9 @@ public class AttachmentList extends ArrayAdapter<PictureUpload> {
 
 
         // get references to the view elements in the layout for populating the data
-        TextView textViewTitle = listViewItem.findViewById(R.id.imageNameDisplay);
-        ImageView attachmentImage = listViewItem.findViewById(R.id.attachmentImage);
+        TextView textViewTitle = listViewItem.findViewById(R.id.attachmentImageNameDisplay);
+        ImageView attachmentImage = listViewItem.findViewById(R.id.attachmentImageView);
 
-
-        // set the most relevant information of the immo object to the textviews
         textViewTitle.setText(pictureUpload.getName());
 
         Glide.with(getContext()).load(pictureUpload.getUrl()).into(attachmentImage);

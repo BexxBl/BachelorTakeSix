@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,7 +57,6 @@ public class ShowExposeFragment extends Fragment {
         // get the expose id from the fragment
         oldbundle = getArguments();
         String immoID = oldbundle.getString("exposeID");
-        Toast.makeText(getContext(), immoID, Toast.LENGTH_SHORT).show();
 
         // get an instance of the FirebaseAuth
         auth = FirebaseAuth.getInstance();

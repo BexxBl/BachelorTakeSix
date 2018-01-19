@@ -4,10 +4,8 @@ package com.webgalaxie.blischke.bachelortakesix.fragments;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,8 +33,6 @@ import com.google.firebase.storage.UploadTask;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.models.PictureUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
-
-import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -83,6 +80,7 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
         chooseImageBTN.setOnClickListener(this);
         addImageBTN.setOnClickListener(this);
 
+
         // return the view
         return view;
     }
@@ -115,12 +113,7 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
-                showSelectedImage.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Glide.with(getContext()).load(filePath).into(showSelectedImage);
         }
     }
 
@@ -167,7 +160,9 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                                //getting the unique id
+                                DatabaseReference pushedDataRef = pictureDataRef.push();
+                                String id = pushedDataRef.getKey();
 
                                 String imageName = imageNameInput.getText().toString().trim();
                                 String imageDownloadURL = taskSnapshot.getDownloadUrl().toString();
@@ -177,7 +172,8 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
 
 
                                 //adding an upload to firebase database
-                                pictureDataRef.child(imageName).setValue(imageDownloadURL);
+                                pictureDataRef.child(id).setValue(upload);
+                                //pictureDataRef.child(imageName).setValue(imageDownloadURL);
                                 string_immo_image_url = imageDownloadURL;
 
 
