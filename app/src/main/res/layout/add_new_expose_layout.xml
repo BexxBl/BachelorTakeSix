@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/showPictureOfImmoView"
                 android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <LinearLayout
@@ -97,14 +97,6 @@
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="16dp" />
-
-        <Button
-            android:id="@+id/addAttachmentsToNewExpose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_signup"
-            android:text="Anhänge hinzufügen"
-            android:textColor="@android:color/white" />
 
         <android.support.v4.widget.Space
             android:id="@+id/space"

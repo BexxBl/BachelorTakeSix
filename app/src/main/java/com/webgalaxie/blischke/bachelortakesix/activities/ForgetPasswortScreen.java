@@ -64,7 +64,7 @@ public class ForgetPasswortScreen extends AppCompatActivity {
 
                 // check if entered email is an valid email adress
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    email_input_forget_pw.setError("Bitte geben Sie eine valide Email Adresse ein");
+                    email_input_forget_pw.setError("Bitte geben Sie eine valide Email ein");
                     email_input_forget_pw.requestFocus();
                     return;
                 }
@@ -79,9 +79,9 @@ public class ForgetPasswortScreen extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 // give the user feedback
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Wir haben Ihnen Anweisungen zum Zurücksetzen des Passwort per Email geschickt.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Wir konnten keine Email versenden!", Toast.LENGTH_SHORT).show();
                                 }
 
                                 progressBar.setVisibility(View.GONE);

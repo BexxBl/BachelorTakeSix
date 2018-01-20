@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
 
     LinearLayout delete;
     DatabaseReference pictureDataRef;
-    String user_id, immo_id;
+    String user_id, immo_id, attachmentID;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -47,22 +48,41 @@ public class BottomSheetFragment extends BottomSheetDialogFragment implements Vi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.delete:
                 deleteAttachment();
-                Toast.makeText(getContext(), "Anhang wird gelöscht", Toast.LENGTH_SHORT).show();
                 break;
+
         }
 
     }
 
+
     private void deleteAttachment() {
+        // get an FirebaseAuth instance
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        // get an reference to the current user
+        FirebaseUser user = auth.getCurrentUser();
+        user_id = user.getUid();
+
         Bundle bundle = getArguments();
-        String attachmentID = bundle.getString("attachmentID");
-        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS).child(user_id).child(immo_id).child(attachmentID);
+        attachmentID = bundle.getString("attachmentID");
+        immo_id = bundle.getString("exposeID");
+
+        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS)
+                .child(user_id)
+                .child(immo_id)
+                .child(Constants.DATABASE_PATH_ATTACHMENTS)
+                .child(attachmentID);
+
+
         pictureDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 pictureDataRef.removeValue();
+                dismiss();
             }
 
             @Override

@@ -583,7 +583,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
         //displaying progress dialog while image is uploading
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Expose wird veröffentlicht hochladen");
-        progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochegladen.");
+        progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochgeladen.");
         progressDialog.show();
 
 
@@ -783,7 +783,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                 //displaying the upload progress
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                progressDialog.setMessage(((int) progress) + "% wurden hochegeladen");
+                                progressDialog.setMessage(((int) progress) + "% wurden hochgeladen");
                             }
                         });
                 //display an error if no file is selected

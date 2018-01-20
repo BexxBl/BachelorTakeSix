@@ -116,9 +116,9 @@ public class LoginScreen extends AppCompatActivity {
                                   if (!task.isSuccessful()) {
                                     // there was an error
                                     if (password.length() < 6) {
-                                        passwortInput.setError(getString(R.string.minimum_password));
+                                        passwortInput.setError("Das Passwort ist zu kurz! Geben Sie mind. 6 Zeichen ein!");
                                     } else {
-                                        Toast.makeText(getApplicationContext(), getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Wir konnten Sie nicht authentifizieren. Überrprüfen Sie ihre Daten oder registrieren Sie sich,", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

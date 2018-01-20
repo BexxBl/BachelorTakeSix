@@ -9,16 +9,18 @@ public class AttachmentUpload {
     public String name;
     public String url;
     public String id;
+    public String immo_ID;
 
     // Default constructor required for calls to
     // DataSnapshot.getValue(User.class)
     public AttachmentUpload() {
     }
 
-    public AttachmentUpload(String name, String url, String id) {
+    public AttachmentUpload(String name, String url, String id, String immo_ID) {
         this.name = name;
         this.url = url;
         this.id = id;
+        this.immo_ID = immo_ID;
     }
 
     public String getName() {
@@ -31,5 +33,9 @@ public class AttachmentUpload {
 
     public String getId() {
         return id;
+    }
+
+    public String getImmo_ID() {
+        return immo_ID;
     }
 }

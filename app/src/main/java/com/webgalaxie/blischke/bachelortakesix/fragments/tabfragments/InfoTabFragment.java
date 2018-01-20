@@ -1,6 +1,7 @@
 package com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,8 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.EditExposeFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.other.DeleteImmoSuccessFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 /**
@@ -131,6 +132,7 @@ public class InfoTabFragment extends Fragment {
                 display_immo_energieausweis_type.setText(String.valueOf(dataSnapshot.child("immo_energieausweis_type").getValue()).toString());
                 display_immo_energieausweis_y_n.setText(String.valueOf(dataSnapshot.child("immo_energieausweis_yes_no").getValue()).toString());
 
+
             }
 
             @Override
@@ -143,6 +145,25 @@ public class InfoTabFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Glide.with(getContext()).load(String.valueOf(dataSnapshot.child("url").getValue()).toString()).into(immo_first_pic);
+
+                final ImagePopup imagePopup = new ImagePopup(getContext());
+                imagePopup.setWindowHeight(800); // Optional
+                imagePopup.setWindowWidth(800); // Optional
+                imagePopup.setBackgroundColor(Color.BLACK);  // Optional
+                imagePopup.setFullScreen(true); // Optional
+                imagePopup.setHideCloseIcon(true);  // Optional
+                imagePopup.setImageOnClickClose(true);  // Optional
+
+                imagePopup.initiatePopupWithGlide(String.valueOf(dataSnapshot.child("url").getValue()).toString());
+
+                immo_first_pic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        /** Initiate Popup view **/
+                        imagePopup.viewPopup();
+
+                    }
+                });
 
             }
 
@@ -179,8 +200,7 @@ public class InfoTabFragment extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.edit_expose:
-                Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
-
+                /*
                 // put the immoID into new Bundle
                 newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
@@ -190,11 +210,10 @@ public class InfoTabFragment extends Fragment {
                 editExpose.setArguments(newBundle);
                 // switch the fragment
                 manager.beginTransaction().replace(R.id.content_frame, editExpose).commit();
-
+                */
                 break;
             case R.id.delete_expose:
                 Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
-
                 immoDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -202,8 +221,8 @@ public class InfoTabFragment extends Fragment {
                         pictureDataRef.removeValue();
                         contactDataRef.removeValue();
 
-                        Fragment showAllExpose = new ShowAllExposeFragment();
-                        manager.beginTransaction().replace(R.id.content_frame, showAllExpose).commit();
+                        Fragment deleteSuccess = new DeleteImmoSuccessFragment();
+                        manager.beginTransaction().replace(R.id.content_frame, deleteSuccess).addToBackStack(null).commit();
                     }
 
                     @Override

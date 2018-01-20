@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fügen Sie Hier einen Anhang zu Ihrem Expose hinzu"
+            android:text="Fügen Sie hier einen Anhang der Immobilie hinzu"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />

@@ -11,10 +11,7 @@
     tools:showIn="@layout/app_bar_main"
     >
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,7 +42,7 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/all_expose_card"
                     android:layout_width="150dp"
-                    android:layout_height="190dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1">
 
@@ -76,7 +73,7 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/add_expose_card"
                     android:layout_width="150dp"
-                    android:layout_height="190dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1">
 
@@ -118,7 +115,7 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/my_account_card"
                     android:layout_width="150dp"
-                    android:layout_height="190dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1">
 
@@ -149,7 +146,7 @@
                 <android.support.v7.widget.CardView
                     android:id="@+id/logout_card"
                     android:layout_width="150dp"
-                    android:layout_height="190dp"
+                    android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1">
 
@@ -182,7 +179,6 @@
 
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 
 
 </RelativeLayout>

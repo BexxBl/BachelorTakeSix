@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/showPictureOfImmoView"
                 android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <LinearLayout

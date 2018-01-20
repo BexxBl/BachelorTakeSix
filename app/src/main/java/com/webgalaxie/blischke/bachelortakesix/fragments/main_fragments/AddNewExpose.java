@@ -281,23 +281,26 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
         //checking if at least name value is provided
 
-        //displaying progress dialog while image is uploading
-        final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setTitle("Expose wird veröffentlicht");
-        progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochegladen.");
-        progressDialog.show();
 
         if (!TextUtils.isEmpty(string_immo_name)) {
+
+            //displaying progress dialog while image is uploading
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("Expose wird veröffentlicht");
+            progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochgeladen.");
+            progressDialog.show();
+
             //getting the unique id
             DatabaseReference pushedDataRef = immoDatabase.push();
             String id = pushedDataRef.getKey();
 
-            // uploading the Picture
-            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(id);
-            pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
+
             //checking if file is available
             if (filePath != null) {
 
+                // uploading the Picture
+                pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(id);
+                pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
 
                 //getting the storage reference
                 StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
@@ -338,47 +341,18 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                 //displaying the upload progress
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                progressDialog.setMessage(((int) progress) + "% wurden hochegeladen");
+                                progressDialog.setMessage(((int) progress) + "% wurden hochgeladen");
                             }
                         });
             } else {
 
-                //getting the storage reference
-                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+                pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
 
-                //adding the file to reference
-                sRef.putFile(filePath)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //adding an upload to firebase database
+                pictureDatabase.child("url").setValue(Constants.DEFAULT_IMMO_PICTURE_URL);
+                string_immo_image_url = Constants.DEFAULT_IMMO_PICTURE_URL;
 
-
-                                //adding an upload to firebase database
-                                pictureDatabase.child("url").setValue(Constants.DEFAULT_IMMO_PICTURE_URL);
-                                string_immo_image_url = Constants.DEFAULT_IMMO_PICTURE_URL;
-
-                                //dismissing the progress dialog
-                                progressDialog.dismiss();
-
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                progressDialog.dismiss();
-                                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                //displaying the upload progress
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                progressDialog.setMessage(((int) progress) + "% wurden hochegeladen");
-                            }
-                        });
-                //display an error if no file is selected
+                //dismissing the progress dialog
                 progressDialog.dismiss();
 
                 Toast.makeText(getContext(), "Immobile wurde erstellt.", Toast.LENGTH_LONG).show();
@@ -669,7 +643,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
 
         // Set the neutral/cancel button click listener
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNeutralButton("Abbrechen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Do something when click the neutral button

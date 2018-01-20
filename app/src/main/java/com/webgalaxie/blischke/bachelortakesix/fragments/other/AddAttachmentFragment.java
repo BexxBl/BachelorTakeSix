@@ -166,7 +166,7 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
                                 String imageDownloadURL = taskSnapshot.getDownloadUrl().toString();
 
                                 //creating the upload object to store uploaded image details
-                                AttachmentUpload upload = new AttachmentUpload(imageName, imageDownloadURL, id);
+                                AttachmentUpload upload = new AttachmentUpload(imageName, imageDownloadURL, id, immoID);
 
 
                                 //adding an upload to firebase database
@@ -195,7 +195,7 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                 //displaying the upload progress
                                 double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                progressDialog.setMessage(((int) progress) + "% wurden hochegeladen");
+                                progressDialog.setMessage(((int) progress) + "% wurden hochgeladen");
                             }
                         });
             }

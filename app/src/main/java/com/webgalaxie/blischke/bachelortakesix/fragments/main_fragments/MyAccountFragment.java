@@ -129,7 +129,7 @@ public class MyAccountFragment extends Fragment {
 
                 final ProgressDialog progressDialog = new ProgressDialog(getContext());
                 progressDialog.setTitle("Profilbild wird geändert");
-                progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochegladen.");
+                progressDialog.setMessage("Die Daten werden der Datenbank hinzugefügt und das Bild hochgeladen.");
                 progressDialog.show();
 
                 // uploading the Picture
@@ -173,7 +173,7 @@ public class MyAccountFragment extends Fragment {
                                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                                     //displaying the upload progress
                                     double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                    progressDialog.setMessage(((int) progress) + "% wurden hochegeladen");
+                                    progressDialog.setMessage(((int) progress) + "% wurden hochgeladen");
                                 }
                             });
                 }
@@ -206,24 +206,13 @@ public class MyAccountFragment extends Fragment {
         changeEMailBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Email adresse ändern geklickt", Toast.LENGTH_LONG).show();
 
                 // get the email from the textinput
                 newEmail = new_email_input_account.getText().toString().trim();
                 final AuthCredential credential = EmailAuthProvider
                         .getCredential(user.getEmail(), oldPassword);
 
-                user.reauthenticate(credential)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(
-                                        getContext(),
-                                        "User wurde neu authentifiziert !",
-                                        Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        });
+                user.reauthenticate(credential);
 
                 // update the email value of user in database
                 DatabaseReference updatePWRef = FirebaseDatabase.getInstance().getReference()
@@ -239,14 +228,14 @@ public class MyAccountFragment extends Fragment {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(
                                             getContext(),
-                                            "Email adresse wurde geändert",
+                                            "Email Adresse wurde geändert",
                                             Toast.LENGTH_LONG)
                                             .show();
                                     mAuth.signOut();
                                 } else {
                                     Toast.makeText(
                                             getContext(),
-                                            "Email adresse wurde NICHT geändert",
+                                            "Email Adresse wurde NICHT geändert",
                                             Toast.LENGTH_LONG)
                                             .show();
 
@@ -271,17 +260,7 @@ public class MyAccountFragment extends Fragment {
                 final AuthCredential credential = EmailAuthProvider
                         .getCredential(user.getEmail(), oldPassword);
 
-                user.reauthenticate(credential)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(
-                                        getContext(),
-                                        "User wurde neu authentifiziert damit PW und Email " +
-                                                "geändert werden kann!!!",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                user.reauthenticate(credential);
 
                 // update the passwort value of user in database
                 DatabaseReference updatePWRef = FirebaseDatabase.getInstance().getReference()
@@ -320,7 +299,6 @@ public class MyAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getContext(), "BTN geklickt", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(getContext(), UserDeleteActivity.class));
 

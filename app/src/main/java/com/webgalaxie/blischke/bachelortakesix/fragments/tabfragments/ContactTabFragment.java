@@ -21,8 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.EditExposeFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.other.DeleteImmoSuccessFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 
@@ -158,8 +157,7 @@ String lastname;
 
         switch (item.getItemId()) {
             case R.id.edit_expose:
-                Toast.makeText(getContext(), "Expose bearbeiten geklickt.", Toast.LENGTH_SHORT).show();
-
+                /*
                 // put the immoID into new Bundle
                 newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
@@ -169,7 +167,7 @@ String lastname;
                 editExpose.setArguments(newBundle);
                 // switch the fragment
                 manager.beginTransaction().replace(R.id.content_frame, editExpose).commit();
-
+                */
                 break;
             case R.id.delete_expose:
                 Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
@@ -181,8 +179,8 @@ String lastname;
                         pictureDataRef.removeValue();
                         contactDataRef.removeValue();
 
-                        Fragment showAllExpose = new ShowAllExposeFragment();
-                        manager.beginTransaction().replace(R.id.content_frame, showAllExpose).commit();
+                        Fragment deleteSuccess = new DeleteImmoSuccessFragment();
+                        manager.beginTransaction().replace(R.id.content_frame, deleteSuccess).addToBackStack(null).commit();
                     }
 
                     @Override
