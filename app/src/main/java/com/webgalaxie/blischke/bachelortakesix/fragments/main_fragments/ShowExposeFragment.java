@@ -19,11 +19,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.adapters.SectionsPageAdapter;
-import com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.AttachmentTabFragment;
+import com.webgalaxie.blischke.bachelortakesix.adapters.TabPageAdapter;
 import com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.ContactTabFragment;
 import com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.InfoTabFragment;
 import com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.KostenTabFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.PDFTabFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments.PictureTabFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 /**
@@ -36,14 +37,20 @@ public class ShowExposeFragment extends Fragment {
     FragmentPagerAdapter adapterViewPager;
     ViewPager viewPager;
     TabLayout tablayout;
-    private SectionsPageAdapter sectionsPageAdapter;
+    int[] tabIcons = {
+            R.drawable.ic_info_white_24dp,
+            R.drawable.ic_euro_symbol_white_24dp,
+            R.drawable.ic_person_white_24dp,
+            R.drawable.ic_photo_white_24dp,
+            R.drawable.ic_picture_as_pdf_white_24dp
+    };
+    private TabPageAdapter tabPageAdapter;
     private DatabaseReference immoDataRef, contactDataRef;
     private Bundle oldbundle, newbundle;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private String userid;
     private Toolbar toolbar;
-
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -98,8 +105,7 @@ public class ShowExposeFragment extends Fragment {
         });
 
 
-
-        // setup the view pager with the sectionsPageAdapter
+        // setup the view pager with the tabPageAdapter
         viewPager = view.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -107,12 +113,24 @@ public class ShowExposeFragment extends Fragment {
         tablayout = view.findViewById(R.id.tabs);
         tablayout.setupWithViewPager(viewPager);
 
+        setupTabIcons();
+
+
         // return the view
         return view;
     }
 
 
-    private void setupViewPager(ViewPager viewPager) {
+    public void setupTabIcons() {
+        tablayout.getTabAt(0).setIcon(tabIcons[0]);
+        tablayout.getTabAt(1).setIcon(tabIcons[1]);
+        tablayout.getTabAt(2).setIcon(tabIcons[2]);
+        tablayout.getTabAt(3).setIcon(tabIcons[3]);
+        tablayout.getTabAt(4).setIcon(tabIcons[4]);
+    }
+
+
+    public void setupViewPager(ViewPager viewPager) {
 
         // get the expose id from the fragment
         oldbundle = getArguments();
@@ -122,27 +140,32 @@ public class ShowExposeFragment extends Fragment {
         newbundle.putString("exposeID", immoID);
 
         // get an adapter
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getFragmentManager());
+        TabPageAdapter adapter = new TabPageAdapter(getFragmentManager());
 
         Fragment infoTabFragment = new InfoTabFragment();
         Fragment kostenTabFragment = new KostenTabFragment();
         Fragment contactTabFragment = new ContactTabFragment();
-        Fragment attachmentTabFragment = new AttachmentTabFragment();
+        Fragment pictureTabFragment = new PictureTabFragment();
+        Fragment pdfTabFragment = new PDFTabFragment();
+
 
         // Add the immoID as an Argument
         infoTabFragment.setArguments(newbundle);
         kostenTabFragment.setArguments(newbundle);
-        attachmentTabFragment.setArguments(newbundle);
+        pictureTabFragment.setArguments(newbundle);
+        pdfTabFragment.setArguments(newbundle);
         contactTabFragment.setArguments(newbundle);
 
         // add the fragements to the adapter
-        adapter.addFragment(infoTabFragment, "Infos");
-        adapter.addFragment(kostenTabFragment, "Kosten");
-        adapter.addFragment(contactTabFragment, "Kontakt");
-        adapter.addFragment(attachmentTabFragment, "Dokumente");
+        adapter.addFragment(infoTabFragment, "");
+        adapter.addFragment(kostenTabFragment, "");
+        adapter.addFragment(contactTabFragment, "");
+        adapter.addFragment(pictureTabFragment, "");
+        adapter.addFragment(pdfTabFragment, "");
 
         // set the adapter to the view pager
         viewPager.setAdapter(adapter);
+
     }
 
 

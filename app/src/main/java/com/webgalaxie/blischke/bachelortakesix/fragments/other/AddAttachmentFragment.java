@@ -144,14 +144,21 @@ public class AddAttachmentFragment extends Fragment implements View.OnClickListe
 
 
             // uploading the Picture
-            pictureStorageRef = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(immoID);
-            pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(immoID).child(Constants.DATABASE_PATH_ATTACHMENTS);
+            pictureStorageRef = FirebaseStorage.getInstance()
+                    .getReference(user_id)
+                    .child(Constants.STORAGE_PATH_IMAGE_UPLOADS)
+                    .child(immoID);
+            pictureDataRef = FirebaseDatabase.getInstance()
+                    .getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS)
+                    .child(user.getUid()).child(immoID)
+                    .child(Constants.DATABASE_PATH_ATTACHMENTS)
+                    .child(Constants.DATABASE_PATH_Imagess);
             //checking if file is available
             if (filePath != null) {
 
 
                 //getting the storage reference
-                StorageReference sRef = pictureStorageRef.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+                StorageReference sRef = pictureStorageRef.child(Constants.STORAGE_PATH_IMAGE_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
 
                 //adding the file to reference
                 sRef.putFile(filePath)

@@ -38,7 +38,7 @@ public class UserDeleteActivity extends AppCompatActivity {
         contactDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_CONTACTS).child(user.getUid());
         userDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_USERS).child(user.getUid());
         immoDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMMOBILIEN).child(user.getUid());
-        uploadDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_UPLOADS).child(user.getUid());
+        uploadDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user.getUid());
 
         // get references to the buttons
         doNotDeleteAccountBTN = findViewById(R.id.doNotDeleteAccountBTN);

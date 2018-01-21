@@ -240,7 +240,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
         // get an reference to the database where the immo objects are stored
         immoDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
         contactDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
-        pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
+        pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
 
 
         //set up the onClickListener for the Buttons
@@ -593,7 +593,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
             // get an reference to the database where the immo objects are stored
             immoDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
             contactDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
-            pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+            pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user_id).child(immoID);
 
 
             immoDatabase.addValueEventListener(new ValueEventListener() {
@@ -698,7 +698,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
 
             // uploading the Picture
-            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
+            pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_IMAGE_UPLOADS);
 
 
 
@@ -707,7 +707,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
 
                 //getting the storage reference
-                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_IMAGE_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
 
                 //adding the file to reference
                 sRef.putFile(filePath)
@@ -752,7 +752,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
             } else {
 
                 //getting the storage reference
-                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_IMAGE_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
 
                 //adding the file to reference
                 sRef.putFile(filePath)

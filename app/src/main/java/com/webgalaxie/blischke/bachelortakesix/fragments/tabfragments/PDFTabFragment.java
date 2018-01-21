@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.daimajia.swipe.util.Attributes;
@@ -29,9 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.adapters.SwipeRecyclerViewAdapter;
-import com.webgalaxie.blischke.bachelortakesix.fragments.other.AddAttachmentFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.other.DeleteImmoSuccessFragment;
+import com.webgalaxie.blischke.bachelortakesix.adapters.PDFSwipeRecyclerViewAdapter;
+import com.webgalaxie.blischke.bachelortakesix.fragments.other.AddPDFFragment;
 import com.webgalaxie.blischke.bachelortakesix.models.AttachmentUpload;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
@@ -40,8 +38,8 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AttachmentTabFragment extends Fragment {
-    private static final String TAG = "ATTACHMENT_TAB";
+public class PDFTabFragment extends Fragment {
+    private static final String TAG = "PDF_TAB";
 
     FirebaseUser user;
     String user_id;
@@ -50,17 +48,15 @@ public class AttachmentTabFragment extends Fragment {
     String immoID;
 
     // Button to add Attachments to the Expose
-    Button addAtachments, deleteAttachmentBTN;
-    ListView show_all_attachments_list;
-    //List<AttachmentUpload> attachmentUploads;
+    Button addAtachments, addPDF;
     ArrayList<AttachmentUpload> attachmentUploads;
     RelativeLayout relativLayout;
-    private DatabaseReference immoDataRef, pictureDataRef, contactDataRef, attachmentDataRef;
+    private DatabaseReference immoDataRef, pictureDataRef, contactDataRef, attachmentImagesDataRef, attachmentPDFDataRef;
     private StorageReference pictureStorageRef;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView, pdf_recycler_view;
 
 
-    public AttachmentTabFragment() {
+    public PDFTabFragment() {
         // Required empty public constructor
     }
 
@@ -69,10 +65,10 @@ public class AttachmentTabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_attachment_tab, container, false);
+        final View view = inflater.inflate(R.layout.fragment_pdf_tab, container, false);
 
         // get reference to the view elements
-        addAtachments = view.findViewById(R.id.addAtachments);
+        addPDF = view.findViewById(R.id.addPDFinTAB);
         relativLayout = view.findViewById(R.id.relativLayout);
 
 
@@ -85,17 +81,17 @@ public class AttachmentTabFragment extends Fragment {
         bundle = getArguments();
         immoID = bundle.getString("exposeID");
 
-        // set the on ClickListener to the addAttachments Button
-        addAtachments.setOnClickListener(new View.OnClickListener() {
+
+        addPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // change the fragment
-                Fragment addAttachmentFragment = new AddAttachmentFragment();
+                Fragment addPDFFragment = new AddPDFFragment();
                 FragmentManager manager = getFragmentManager();
                 newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
-                addAttachmentFragment.setArguments(newBundle);
-                manager.beginTransaction().replace(R.id.content_frame, addAttachmentFragment).addToBackStack(null).commit();
+                addPDFFragment.setArguments(newBundle);
+                manager.beginTransaction().replace(R.id.content_frame, addPDFFragment).addToBackStack(null).commit();
 
             }
         });
@@ -103,30 +99,25 @@ public class AttachmentTabFragment extends Fragment {
 
         // get reference to the database and storage
         immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
-        attachmentDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_ATTACHMENTS);
-        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        attachmentPDFDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user_id).child(immoID).child(Constants.DATABASE_PATH_ATTACHMENTS).child(Constants.DATABASE_PATH_PDFs);
         contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
-        pictureStorageRef = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS);
+        pictureStorageRef = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_IMAGE_UPLOADS);
 
 
-        mRecyclerView = view.findViewById(R.id.my_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        pdf_recycler_view = view.findViewById(R.id.pdf_recycler_view);
+        pdf_recycler_view.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
-        // attaching the ValueEventListener
-        attachmentDataRef.addValueEventListener(new ValueEventListener() {
-
-
+        attachmentPDFDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // check if there are values in the database
                 if (dataSnapshot.getValue() != null) {
                     attachmentUploads = new ArrayList<AttachmentUpload>();
 
                     attachmentUploads.clear();
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        AttachmentUpload attachmentUpload = postSnapshot.getValue(AttachmentUpload.class);
+                        final AttachmentUpload attachmentUpload = postSnapshot.getValue(AttachmentUpload.class);
                         // adding the picture to the list
                         attachmentUploads.add(attachmentUpload);
 
@@ -136,13 +127,13 @@ public class AttachmentTabFragment extends Fragment {
 
                         // creating the List Adapter and add him to the Listview
 
-                        SwipeRecyclerViewAdapter mAdapter = new SwipeRecyclerViewAdapter(getContext(), attachmentUploads);
+                        PDFSwipeRecyclerViewAdapter mAdapter = new PDFSwipeRecyclerViewAdapter(getContext(), attachmentUploads);
 
-                        ((SwipeRecyclerViewAdapter) mAdapter).setMode(Attributes.Mode.Single);
+                        mAdapter.setMode(Attributes.Mode.Single);
 
-                        mRecyclerView.setAdapter(mAdapter);
+                        pdf_recycler_view.setAdapter(mAdapter);
 
-                        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                        pdf_recycler_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
                             @Override
                             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                                 super.onScrollStateChanged(recyclerView, newState);
@@ -158,17 +149,16 @@ public class AttachmentTabFragment extends Fragment {
 
                     }
 
-                }
 
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-
             }
-
         });
+
 
         //return the view
         return view;
@@ -193,21 +183,9 @@ public class AttachmentTabFragment extends Fragment {
         bundle = getArguments();
         immoID = bundle.getString("exposeID");
 
-
+        /*
         switch (item.getItemId()) {
-            case R.id.edit_expose:
-                /*
-                // put the immoID into new Bundle
-                newBundle = new Bundle();
-                newBundle.putString("exposeID", immoID);
-                // get a new instance of editExposeFragment
-                Fragment editExpose = new EditExposeFragment();
-                // set the newBundle as Arguments to the fragement
-                editExpose.setArguments(newBundle);
-                // switch the fragment
-                manager.beginTransaction().replace(R.id.content_frame, editExpose).commit();
-                */
-                break;
+
             case R.id.delete_expose:
 
                 immoDataRef.addValueEventListener(new ValueEventListener() {
@@ -229,7 +207,7 @@ public class AttachmentTabFragment extends Fragment {
 
                 break;
 
-        }
+        } */
         return super.onOptionsItemSelected(item);
     }
 

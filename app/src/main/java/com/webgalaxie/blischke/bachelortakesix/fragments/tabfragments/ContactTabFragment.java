@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,7 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
-import com.webgalaxie.blischke.bachelortakesix.fragments.other.DeleteImmoSuccessFragment;
 import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 
@@ -94,7 +92,7 @@ String lastname;
         super.onStart();
 
         immoDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMMOBILIEN).child(user_id).child(immoID);
-        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user_id).child(immoID);
+        pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user_id).child(immoID);
         contactDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_CONTACTS).child(user_id).child(immoID);
 
 
@@ -154,21 +152,9 @@ String lastname;
         bundle = getArguments();
         immoID = bundle.getString("exposeID");
 
-
+        /*
         switch (item.getItemId()) {
-            case R.id.edit_expose:
-                /*
-                // put the immoID into new Bundle
-                newBundle = new Bundle();
-                newBundle.putString("exposeID", immoID);
-                // get a new instance of editExposeFragment
-                Fragment editExpose = new EditExposeFragment();
-                // set the newBundle as Arguments to the fragement
-                editExpose.setArguments(newBundle);
-                // switch the fragment
-                manager.beginTransaction().replace(R.id.content_frame, editExpose).commit();
-                */
-                break;
+
             case R.id.delete_expose:
                 Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
 
@@ -191,7 +177,7 @@ String lastname;
 
                 break;
 
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 }

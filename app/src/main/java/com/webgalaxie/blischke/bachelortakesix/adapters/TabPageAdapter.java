@@ -11,14 +11,15 @@ import java.util.List;
  * Created by Bexx on 10.01.18.
  */
 
-public class SectionsPageAdapter extends FragmentPagerAdapter {
+public class TabPageAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
     private final List<String> fragmentTitleList = new ArrayList<>();
 
 
+
     // constructor
-    public SectionsPageAdapter(FragmentManager fm) {
+    public TabPageAdapter(FragmentManager fm) {
         super(fm);
     }
 

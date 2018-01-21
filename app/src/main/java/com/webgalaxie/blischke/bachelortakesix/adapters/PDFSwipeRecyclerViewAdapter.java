@@ -1,6 +1,8 @@
 package com.webgalaxie.blischke.bachelortakesix.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +26,16 @@ import com.webgalaxie.blischke.bachelortakesix.other.Constants;
 
 import java.util.ArrayList;
 
-public class SwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<SwipeRecyclerViewAdapter.SimpleViewHolder> {
+public class PDFSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PDFSwipeRecyclerViewAdapter.SimpleViewHolder> {
 
-    DatabaseReference pictureDataRef;
+    DatabaseReference pdfDataRef;
     FirebaseAuth auth;
     FirebaseUser user;
     String user_id, attachmentID, immo_id;
     private Context mContext;
     private ArrayList<AttachmentUpload> attachmentUploads;
 
-    public SwipeRecyclerViewAdapter(Context context, ArrayList<AttachmentUpload> objects) {
+    public PDFSwipeRecyclerViewAdapter(Context context, ArrayList<AttachmentUpload> objects) {
         this.mContext = context;
         this.attachmentUploads = objects;
 
@@ -48,20 +50,19 @@ public class SwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<SwipeRecycler
 
     @Override
     public void onBindViewHolder(final SimpleViewHolder viewHolder, final int position) {
+        // get the attachment
         final AttachmentUpload item = attachmentUploads.get(position);
 
-
+        // set the data to the view elements
         viewHolder.attachmentName.setText(item.getName());
         Glide.with(mContext).load(item.getUrl()).into(viewHolder.attachmentImageView);
 
-
+        //
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-
-
-        //dari kanan
+        //
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
 
-
+        // add the Listener for the Swipe Events
         viewHolder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
             public void onStartOpen(SwipeLayout layout) {
@@ -94,35 +95,30 @@ public class SwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<SwipeRecycler
             }
         });
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        user_id = user.getUid();
+
+        attachmentID = item.getId();
+        immo_id = item.getImmo_ID();
+
+        pdfDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS)
+                .child(user_id)
+                .child(immo_id)
+                .child(Constants.DATABASE_PATH_ATTACHMENTS).child(Constants.DATABASE_PATH_PDFs)
+                .child(attachmentID);
+
 
         viewHolder.Delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                AttachmentUpload attachmentUpload = attachmentUploads.get(position);
-                auth = FirebaseAuth.getInstance();
-                user = auth.getCurrentUser();
-                user_id = user.getUid();
-
-                attachmentID = attachmentUpload.getId();
-                immo_id = attachmentUpload.getImmo_ID();
-
-
                 mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-                // attachmentUploads.remove(position);
 
-
-                pictureDataRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS)
-                        .child(user_id)
-                        .child(immo_id)
-                        .child(Constants.DATABASE_PATH_ATTACHMENTS)
-                        .child(attachmentID);
-
-
-                pictureDataRef.addValueEventListener(new ValueEventListener() {
+                pdfDataRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        pictureDataRef.removeValue();
+                        pdfDataRef.removeValue();
                     }
 
                     @Override
@@ -138,7 +134,20 @@ public class SwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<SwipeRecycler
         });
 
 
+        viewHolder.attachmentName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Opening the upload file in browser using the upload url
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(item.getUrl()));
+                mContext.startActivity(intent);
+            }
+        });
+
+
         mItemManger.bindView(viewHolder.itemView, position);
+
+
     }
 
     @Override
@@ -164,8 +173,9 @@ public class SwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<SwipeRecycler
             attachmentName = itemView.findViewById(R.id.attachmentImageNameDisplay);
             attachmentImageView = itemView.findViewById(R.id.attachmentImageView);
 
-            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
-            Delete = (TextView) itemView.findViewById(R.id.Delete);
+            swipeLayout = itemView.findViewById(R.id.swipe);
+            Delete = itemView.findViewById(R.id.Delete);
+
 
         }
     }

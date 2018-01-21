@@ -299,11 +299,11 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
             if (filePath != null) {
 
                 // uploading the Picture
-                pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_UPLOADS).child(id);
-                pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
+                pictureStorageReference = FirebaseStorage.getInstance().getReference(user_id).child(Constants.STORAGE_PATH_IMAGE_UPLOADS).child(id);
+                pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
 
                 //getting the storage reference
-                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
+                StorageReference sRef = pictureStorageReference.child(Constants.STORAGE_PATH_IMAGE_UPLOADS + System.currentTimeMillis() + "." + getFileExtension(filePath));
 
                 //adding the file to reference
                 sRef.putFile(filePath)
@@ -346,7 +346,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
                         });
             } else {
 
-                pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
+                pictureDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_IMAGE_UPLOADS).child(user.getUid()).child(id).child(Constants.DATABASE_PATH_IMMO_FIRST_PICTURE);
 
                 //adding an upload to firebase database
                 pictureDatabase.child("url").setValue(Constants.DEFAULT_IMMO_PICTURE_URL);
