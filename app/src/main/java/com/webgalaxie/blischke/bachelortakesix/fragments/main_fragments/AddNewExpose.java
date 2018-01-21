@@ -509,7 +509,7 @@ public class AddNewExpose extends Fragment implements View.OnClickListener {
 
     private void changeFragment() {
 
-        Fragment showAllExposeFragment = new ShowAllExposeFragment();
+        Fragment showAllExposeFragment = new ShowAllFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).addToBackStack(null).commit();
     }

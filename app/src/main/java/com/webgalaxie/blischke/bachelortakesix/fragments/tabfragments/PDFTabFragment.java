@@ -2,16 +2,12 @@ package com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,7 +49,7 @@ public class PDFTabFragment extends Fragment {
     RelativeLayout relativLayout;
     private DatabaseReference immoDataRef, pictureDataRef, contactDataRef, attachmentImagesDataRef, attachmentPDFDataRef;
     private StorageReference pictureStorageRef;
-    private RecyclerView mRecyclerView, pdf_recycler_view;
+    private RecyclerView pdf_recycler_view;
 
 
     public PDFTabFragment() {
@@ -162,53 +158,6 @@ public class PDFTabFragment extends Fragment {
 
         //return the view
         return view;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.showexposemenu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final FragmentManager manager = getFragmentManager();
-        // get the expose id
-        bundle = getArguments();
-        immoID = bundle.getString("exposeID");
-
-        /*
-        switch (item.getItemId()) {
-
-            case R.id.delete_expose:
-
-                immoDataRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        immoDataRef.removeValue();
-                        pictureDataRef.removeValue();
-                        contactDataRef.removeValue();
-
-                        Fragment deleteSuccess = new DeleteImmoSuccessFragment();
-                        manager.beginTransaction().replace(R.id.content_frame, deleteSuccess).addToBackStack(null).commit();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                break;
-
-        } */
-        return super.onOptionsItemSelected(item);
     }
 
 

@@ -358,7 +358,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
             case R.id.action_cancel_edit_expose:
                 Toast.makeText(getContext(), "Bearbeiten des Exposes wird abgebrochen", Toast.LENGTH_SHORT).show();
-                Fragment showAllExposeFragement = new ShowAllExposeFragment();
+                Fragment showAllExposeFragement = new ShowExposeFragment();
                 Bundle newBundle = new Bundle();
                 newBundle.putString("exposeID", immoID);
                 showAllExposeFragement.setArguments(newBundle);
@@ -408,7 +408,7 @@ public class EditExposeFragment extends Fragment implements View.OnClickListener
 
     private void changeFragment() {
 
-        Fragment showAllExposeFragment = new ShowAllExposeFragment();
+        Fragment showAllExposeFragment = new ShowExposeFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).addToBackStack(null).commit();
     }

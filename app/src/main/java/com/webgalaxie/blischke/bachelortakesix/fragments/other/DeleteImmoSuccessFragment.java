@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.AddNewExpose;
-import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowExposeFragment;
 
 
 /**
@@ -46,7 +46,7 @@ public class DeleteImmoSuccessFragment extends Fragment {
         goToAllExposeBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment showAllExposeFragment = new ShowAllExposeFragment();
+                Fragment showAllExposeFragment = new ShowExposeFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.content_frame, showAllExposeFragment).commit();
             }

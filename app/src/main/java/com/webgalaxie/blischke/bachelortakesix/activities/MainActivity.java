@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.webgalaxie.blischke.bachelortakesix.R;
 import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.AddNewExpose;
 import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.MyAccountFragment;
-import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllExposeFragment;
+import com.webgalaxie.blischke.bachelortakesix.fragments.main_fragments.ShowAllFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -135,9 +135,9 @@ public class MainActivity extends AppCompatActivity
         all_expose_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowAllExposeFragment showAllExposeFragment = new ShowAllExposeFragment();
+                ShowAllFragment showAllFragment = new ShowAllFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, showAllExposeFragment)
+                        .replace(R.id.content_frame, showAllFragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -196,9 +196,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_all_expose) {
             //Replace content_frame with the ShowAllExposeFragment
 
-            ShowAllExposeFragment showAllExposeFragment = new ShowAllExposeFragment();
+            ShowAllFragment showAllFragment = new ShowAllFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_frame, showAllExposeFragment)
+                    .replace(R.id.content_frame, showAllFragment)
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_add_new_expose) {

@@ -3,13 +3,8 @@ package com.webgalaxie.blischke.bachelortakesix.fragments.tabfragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -176,52 +171,6 @@ public class InfoTabFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.showexposemenu, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final FragmentManager manager = getFragmentManager();
-        // get the expose id
-        bundle = getArguments();
-        immoID = bundle.getString("exposeID");
-
-        /*
-        switch (item.getItemId()) {
-
-            case R.id.delete_expose:
-                Toast.makeText(getContext(), "Expose wurde gelöscht.", Toast.LENGTH_SHORT).show();
-                immoDataRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        immoDataRef.removeValue();
-                        pictureDataRef.removeValue();
-                        contactDataRef.removeValue();
-
-                        Fragment deleteSuccess = new DeleteImmoSuccessFragment();
-                        manager.beginTransaction().replace(R.id.content_frame, deleteSuccess).addToBackStack(null).commit();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                break;
-
-        }*/
-        return super.onOptionsItemSelected(item);
-    }
 
 
 }
